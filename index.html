@@ -49,6 +49,7 @@
   [data-theme="dark"] .skill-card { background: #1e1c1a; }
   [data-theme="dark"] .project-card { background: #1e1c1a; }
   [data-theme="dark"] .cert-card { background: #1e1c1a; }
+
   [data-theme="dark"] .edu-item { border-color: rgba(240,237,232,0.1); }
   [data-theme="dark"] .exp-item { border-color: rgba(240,237,232,0.1); }
   [data-theme="dark"] .info-list li { border-color: rgba(240,237,232,0.1); }
@@ -364,6 +365,48 @@
   .cert-card h4 { font-size: 0.9rem; font-weight: 500; color: var(--ink); line-height: 1.4; }
   .cert-card p { font-size: 0.78rem; color: var(--ink-muted); margin-top: 3px; }
 
+  /* RESUME */
+  #resume { background: var(--bg); text-align: center; }
+  .resume-center { max-width: 600px; margin: 0 auto; }
+  .resume-center .divider { margin-left: auto; margin-right: auto; }
+  .resume-big-head {
+    font-family: var(--font-display);
+    font-size: clamp(2.6rem, 4.5vw, 4rem);
+    font-weight: 700; line-height: 1.05;
+    letter-spacing: -0.025em; margin-bottom: 1.5rem; color: var(--ink);
+  }
+  .resume-big-head em { color: var(--accent); font-style: italic; }
+  .resume-center-sub {
+    font-size: 1.05rem; color: var(--ink-soft);
+    line-height: 1.8; margin-bottom: 3rem;
+  }
+  .resume-stats-row {
+    display: flex; gap: 1rem; justify-content: center;
+    flex-wrap: wrap; margin-bottom: 3rem;
+  }
+  .resume-stat-pill {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 0.75rem; padding: 1rem 1.6rem; min-width: 120px;
+    transition: transform 0.2s;
+  }
+  .resume-stat-pill:hover { transform: translateY(-3px); }
+  .resume-stat-pill .r-num {
+    font-family: var(--font-display); font-size: 1.9rem;
+    font-weight: 700; color: var(--accent);
+    display: block; line-height: 1;
+  }
+  .resume-stat-pill .r-lbl {
+    font-size: 0.68rem; color: var(--ink-muted);
+    letter-spacing: 0.06em; text-transform: uppercase;
+    margin-top: 4px; display: block;
+  }
+  .resume-avail {
+    display: flex; align-items: center; justify-content: center;
+    gap: 0.6rem; margin-top: 1.5rem;
+    font-size: 0.8rem; color: var(--ink-muted);
+  }
+  .resume-avail-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--border); display: inline-block; }
+
   /* CONTACT */
   #contact {
     background: var(--accent);
@@ -383,7 +426,32 @@
   .contact-link:hover { transform: translateY(-2px); }
   .contact-link.email { background: #fff; color: var(--accent); }
   .contact-link.linkedin { background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.3); }
+  .contact-link.resume-dl { background: var(--accent2); color: #fff; }
   .contact-info { margin-top: 3rem; font-size: 0.85rem; color: rgba(255,255,255,0.5); }
+
+  /* RESUME LANG MODAL */
+  .resume-modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.55);
+    z-index: 9999; display: flex; align-items: center; justify-content: center;
+    backdrop-filter: blur(4px);
+  }
+  .resume-modal {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 1.25rem; padding: 2.5rem 2rem; text-align: center;
+    max-width: 400px; width: 90%; box-shadow: 0 24px 60px rgba(0,0,0,0.2);
+  }
+  .resume-modal h3 {
+    font-family: var(--font-display); font-size: 1.4rem;
+    font-weight: 700; margin-bottom: 0.5rem; letter-spacing: -0.01em;
+  }
+  .resume-modal p { font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 2rem; line-height: 1.6; }
+  .resume-modal-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .resume-modal-cancel {
+    background: none; border: none; color: var(--ink-muted);
+    font-size: 0.82rem; cursor: pointer; margin-top: 1.2rem;
+    font-family: var(--font-body); text-decoration: underline; display: block; margin-left: auto; margin-right: auto;
+  }
+  .resume-modal-cancel:hover { color: var(--ink); }
 
   /* FOOTER */
   footer {
@@ -428,6 +496,7 @@
     <li><a href="#research" data-en="Research" data-de="Forschung">Research</a></li>
     <li><a href="#projects" data-en="Projects" data-de="Projekte">Projects</a></li>
     <li><a href="#education" data-en="Education" data-de="Ausbildung">Education</a></li>
+    <li><a href="#resume" data-en="Resume" data-de="Lebenslauf">Resume</a></li>
     <li><a href="#contact" data-en="Contact" data-de="Kontakt">Contact</a></li>
   </ul>
   <div style="display:flex; gap:0.6rem; align-items:center;">
@@ -445,6 +514,7 @@
     <div class="hero-cta">
       <a href="#contact" class="btn-primary" data-en="Get in Touch" data-de="Kontakt aufnehmen">Get in Touch</a>
       <a href="#research" class="btn-outline" data-en="View Projects" data-de="Projekte ansehen">View Projects</a>
+      <button onclick="document.getElementById('resume').scrollIntoView({behavior:'smooth'})" class="btn-outline" data-en="↓ Resume" data-de="↓ Lebenslauf">↓ Resume</button>
     </div>
   </div>
 
@@ -751,6 +821,38 @@
   </div>
 </section>
 
+<!-- RESUME -->
+<section id="resume">
+  <div class="resume-center">
+    <div class="section-label" data-en="Resume" data-de="Lebenslauf">Resume</div>
+    <h2 class="resume-big-head">Think I&rsquo;m<br>the right fit?<br><em>Download my resume.</em></h2>
+    <div class="divider" style="margin-left:auto;margin-right:auto;"></div>
+    <p class="resume-center-sub" data-en="All my experience, research, and skills &mdash; distilled into one clean document. Available in English and German." data-de="Alle Erfahrungen, Forschungsarbeiten und Kenntnisse &mdash; in einem sauberen Dokument. Auf Englisch und Deutsch verfügbar.">All my experience, research, and skills &mdash; distilled into one clean document. Available in English and German.</p>
+    <div class="resume-stats-row">
+      <div class="resume-stat-pill">
+        <span class="r-num">1+</span>
+        <span class="r-lbl" data-en="Yr Industry Exp." data-de="J. Berufserfahrung">Yr Industry Exp.</span>
+      </div>
+      <div class="resume-stat-pill">
+        <span class="r-num">2</span>
+        <span class="r-lbl" data-en="IEEE Papers" data-de="IEEE-Publikationen">IEEE Papers</span>
+      </div>
+      <div class="resume-stat-pill">
+        <span class="r-num">MSc</span>
+        <span class="r-lbl" data-en="In Progress" data-de="In Bearbeitung">In Progress</span>
+      </div>
+    </div>
+    <button onclick="openResumeModal()" class="btn-primary" data-en="↓ Download Resume" data-de="↓ Lebenslauf herunterladen">↓ Download Resume</button>
+    <div class="resume-avail">
+      <span>🇬🇧 English</span>
+      <span class="resume-avail-dot"></span>
+      <span>🇩🇪 Deutsch</span>
+      <span class="resume-avail-dot"></span>
+      <span data-en="PDF · Generated on click" data-de="PDF · Sofort generiert">PDF · Generated on click</span>
+    </div>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section id="contact">
   <div class="section-label" data-en="Contact" data-de="Kontakt">Contact</div>
@@ -855,6 +957,299 @@
     document.addEventListener('DOMContentLoaded', function() { applyLang(lang); });
   })();
 
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<!-- Hidden resume template for PDF generation — follows Shift entry-level template structure -->
+<div id="resume-pdf-template-en" style="position:fixed; top:0; left:0; z-index:-100; visibility:hidden; pointer-events:none;">
+<div style="font-family:'Times New Roman',Times,serif;width:210mm;margin:0;padding:16mm 20mm 16mm 20mm;color:#000;background:#fff;font-size:10.5pt;line-height:1.45;box-sizing:border-box;">
+
+  <!-- Header: Name + Position + Contact + Photo -->
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
+    <div>
+      <div style="font-size:22pt;font-weight:bold;letter-spacing:1.5px;margin-bottom:4px;">ROHIT SURYAA SARAVANAN</div>
+      <div style="font-size:10pt;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Data Scientist &amp; Software Developer</div>
+      <div style="font-size:9.5pt;color:#333;">+49 160 96597803 &nbsp;&bull;&nbsp; <a href="mailto:rohitsuryaas21@gmail.com" style="color:#333;text-decoration:none;">rohitsuryaas21@gmail.com</a></div>
+      <div style="font-size:9.5pt;color:#333;margin-top:2px;"><a href="https://www.linkedin.com/in/rohit-suryaa-saravanan-197b33303/" style="color:#333;text-decoration:none;">linkedin.com/in/rohit-suryaa-saravanan-197b33303</a></div>
+      <div style="font-size:9.5pt;color:#333;margin-top:2px;">Fulda, Germany</div>
+    </div>
+    <img id="resume-photo-en" src="" style="width:90px;height:110px;object-fit:cover;object-position:center top;border:1px solid #ccc;flex-shrink:0;margin-left:16px;" />
+  </div>
+  <div style="border-top:1.5px solid #000;margin-bottom:13px;"></div>
+
+  <!-- 1. Professional Summary -->
+  <div style="margin-bottom:13px;">
+    <div style="font-size:12pt;font-weight:bold;border-bottom:1px solid #000;padding-bottom:3px;margin-bottom:7px;">Professional Summary</div>
+    <div style="font-size:10.5pt;color:#111;line-height:1.6;">
+      Recent graduate with a BTech in Big Data Computer Science and 1+ year of professional experience as a Software Developer at an American cybersecurity startup, currently pursuing an MSc in Data Science at Hochschule Fulda, Germany. Proficient in Python, machine learning, and full-stack development, with hands-on experience building scalable enterprise systems and deploying ML models. Published author of 2 IEEE research papers on predictive analytics and blockchain-based financial systems, demonstrating the ability to bridge academic research and real-world engineering.
+    </div>
+  </div>
+
+  <!-- 2. Education -->
+  <div style="margin-bottom:13px;">
+    <div style="font-size:12pt;font-weight:bold;border-bottom:1px solid #000;padding-bottom:3px;margin-bottom:7px;">Education</div>
+
+    <div style="margin-bottom:8px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+        <div style="font-size:9.5pt;color:#555;font-style:italic;">Apr 2025 &mdash; Present</div>
+      </div>
+      <div><span style="font-weight:bold;">MSc in Data Science</span> &nbsp;|&nbsp; Hochschule Fulda, Germany</div>
+      <div style="font-size:9.5pt;color:#444;margin-top:2px;">Focus: Machine Learning, Applied Mathematics, Data Mining &amp; Predictive Analytics, Big Data Technologies &amp; Distributed Systems, Data Visualization &amp; Business Intelligence, Process Mining, Data Ethics &amp; GDPR Compliance, Research Methods.</div>
+    </div>
+
+    <div>
+      <div style="font-size:9.5pt;color:#555;font-style:italic;">Aug 2020 &mdash; Nov 2024</div>
+      <div><span style="font-weight:bold;">BTech in Big Data Computer Science</span> &nbsp;|&nbsp; SRM University, Chennai, India</div>
+      <div style="font-size:9.5pt;color:#444;margin-top:2px;">Focus: Data Structures &amp; Algorithms, DBMS, Software Engineering, Computer Networks, Operating Systems, OOP, Database Security &amp; Privacy, Compiler Design, Computer Architecture.</div>
+    </div>
+  </div>
+
+  <!-- 3. Professional Experience -->
+  <div style="margin-bottom:13px;">
+    <div style="font-size:12pt;font-weight:bold;border-bottom:1px solid #000;padding-bottom:3px;margin-bottom:7px;">Professional Experience</div>
+
+    <div style="font-size:9.5pt;color:#555;font-style:italic;">Mar 2024 &mdash; Apr 2025</div>
+    <div style="margin-bottom:5px;"><span style="font-weight:bold;">Associate Software Developer</span> &nbsp;|&nbsp; EigenSecure, USA (Remote)</div>
+    <div style="font-size:9.5pt;color:#444;margin-bottom:5px;font-style:italic;">Cybersecurity startup specializing in Information Security Management platforms.</div>
+    <div style="font-size:10pt;margin-bottom:4px;">Full-stack developer on a scalable enterprise ISMS product, contributing to backend architecture, data pipelines, and cloud deployments across the full SDLC in an Agile/Scrum environment.</div>
+    <ul style="margin:0;padding-left:18px;font-size:10pt;color:#111;">
+      <li style="margin-bottom:4px;">Developed and maintained a scalable enterprise Information Security Management System (ISMS), designing robust backend architecture, RESTful APIs, and data-centric workflows ensuring reliable processing and reporting.</li>
+      <li style="margin-bottom:4px;">Optimized relational databases, complex SQL queries, and backend components to improve system scalability, data flow efficiency, and overall application performance in production environments.</li>
+      <li>Supported cloud deployments and CI/CD pipelines within Agile/Scrum teams, delivering secure, production-ready systems with high reliability, monitoring, and maintainability.</li>
+    </ul>
+  </div>
+
+  <!-- 4. Academic Achievements (Research & Projects) -->
+  <div style="margin-bottom:13px;">
+    <div style="font-size:12pt;font-weight:bold;border-bottom:1px solid #000;padding-bottom:3px;margin-bottom:7px;">Academic Achievements</div>
+    <ul style="margin:0;padding-left:18px;font-size:10pt;color:#111;">
+      <li style="margin-bottom:5px;">Published IEEE paper: <em>Windmill Pitch Prediction &amp; Error Correction with Adaptive Control</em> (ICEMCE 2023) — developed XGBoost ML model with 26 engineered features; reduced pitch error from 8.6% to 2.3%, achieved 96% prediction accuracy, and delivered +21% power output gain. DOI: 10.1109/ICEMCE57940.2023.10433983</li>
+      <li style="margin-bottom:5px;">Published IEEE paper: <em>Empowering Small-Scale Farmers with DeFi via Ethereum Smart Contracts</em> (ICSCSS 2024) — designed decentralized agricultural finance framework automating loan disbursement and insurance; increased farmer digital transparency adoption from &lt;50% to ~80%. DOI: 10.1109/ICSCSS60660.2024.10625462</li>
+      <li style="margin-bottom:5px;">Built end-to-end supply chain analytics pipeline on 100K+ Olist transactions; SARIMA model achieved 18.5% MAPE (sub-20% industry benchmark), with EOQ optimization (1,259 units/order, 95% service level) and an interactive Plotly Dash dashboard.</li>
+      <li>Developed employee attrition prediction models with feature engineering and EDA on Kaggle dataset, delivering actionable HR retention insights using Scikit-learn predictive modeling.</li>
+    </ul>
+  </div>
+
+  <!-- 5. Skills & Technical Competencies -->
+  <div style="margin-bottom:13px;">
+    <div style="font-size:12pt;font-weight:bold;border-bottom:1px solid #000;padding-bottom:3px;margin-bottom:7px;">Skills &amp; Technical Competencies</div>
+    <ul style="margin:0;padding-left:18px;font-size:10pt;color:#111;">
+      <li style="margin-bottom:4px;"><span style="font-weight:bold;">Data Analysis &amp; Machine Learning:</span> Python, NumPy, Pandas, Scikit-learn, PyTorch, XGBoost, Matplotlib, Seaborn, SARIMA, Time Series Forecasting</li>
+      <li style="margin-bottom:4px;"><span style="font-weight:bold;">Backend Development:</span> Python, Java, Flask, .NET, Express.js, Solidity, RESTful API Design</li>
+      <li style="margin-bottom:4px;"><span style="font-weight:bold;">Frontend:</span> React.js, HTML/CSS, TailwindCSS, MudBlazor, XML</li>
+      <li style="margin-bottom:4px;"><span style="font-weight:bold;">Databases:</span> MySQL, PostgreSQL, MongoDB, Complex SQL, Query Optimization</li>
+      <li style="margin-bottom:4px;"><span style="font-weight:bold;">DevOps &amp; Cloud:</span> Azure, Docker, Jenkins, CI/CD Pipelines, Git, Subversion</li>
+      <li style="margin-bottom:4px;"><span style="font-weight:bold;">Blockchain &amp; API:</span> Web3.py, Ganache, Ethereum Smart Contracts, Stripe API</li>
+      <li><span style="font-weight:bold;">Soft Skills:</span> Agile/Scrum, technical documentation, cross-functional collaboration, research &amp; academic writing</li>
+    </ul>
+  </div>
+
+  <!-- 6. Certifications -->
+  <div style="margin-bottom:13px;">
+    <div style="font-size:12pt;font-weight:bold;border-bottom:1px solid #000;padding-bottom:3px;margin-bottom:7px;">Certifications</div>
+    <ul style="margin:0;padding-left:18px;font-size:10pt;color:#111;">
+      <li style="margin-bottom:3px;">Supply Chain Specialist Certificate &mdash; Airbus Beyond</li>
+      <li style="margin-bottom:3px;">IBM Data Science Professional Certificate &mdash; Coursera</li>
+      <li style="margin-bottom:3px;">Complete Data Science Bootcamp 2026 &mdash; 365 Careers &middot; Udemy</li>
+      <li>Google Data Analytics Certificate &mdash; Coursera</li>
+    </ul>
+  </div>
+
+  <!-- 7. Portfolio -->
+  <div style="margin-bottom:13px;">
+    <div style="font-size:12pt;font-weight:bold;border-bottom:1px solid #000;padding-bottom:3px;margin-bottom:7px;">Portfolio</div>
+    <ul style="margin:0;padding-left:18px;font-size:10pt;color:#111;">
+      <li style="margin-bottom:4px;"><span style="font-weight:bold;">Windmill Pitch Prediction:</span> <a href="https://github.com/srohitsuryaa21/windmill-pitch-prediction" style="color:#1a472a;text-decoration:none;">github.com/srohitsuryaa21/windmill-pitch-prediction</a></li>
+      <li style="margin-bottom:4px;"><span style="font-weight:bold;">DeFi Farmer Platform:</span> <a href="https://github.com/srohitsuryaa21/defi_Farmer_Platform" style="color:#1a472a;text-decoration:none;">github.com/srohitsuryaa21/defi_Farmer_Platform</a></li>
+      <li style="margin-bottom:4px;"><span style="font-weight:bold;">Supply Chain Forecasting:</span> <a href="https://github.com/srohitsuryaa21/supply-chain-forecasting" style="color:#1a472a;text-decoration:none;">github.com/srohitsuryaa21/supply-chain-forecasting</a></li>
+      <li style="margin-bottom:4px;"><span style="font-weight:bold;">Employee Attrition Prediction:</span> <a href="https://github.com/srohitsuryaa21/employee-attrition-prediction" style="color:#1a472a;text-decoration:none;">github.com/srohitsuryaa21/employee-attrition-prediction</a></li>
+      <li><span style="font-weight:bold;">Portfolio Website:</span> <a href="https://github.com/srohitsuryaa21/rohit_portfolio_website" style="color:#1a472a;text-decoration:none;">github.com/srohitsuryaa21/rohit_portfolio_website</a></li>
+    </ul>
+  </div>
+
+  <!-- Languages -->
+  <div>
+    <div style="font-size:12pt;font-weight:bold;border-bottom:1px solid #000;padding-bottom:3px;margin-bottom:7px;">Languages</div>
+    <div style="font-size:10.5pt;">English (Fluent) &nbsp;&bull;&nbsp; Tamil (Native) &nbsp;&bull;&nbsp; German (A2 &mdash; Ongoing)</div>
+  </div>
+
+</div>
+</div>
+
+<!-- German Resume Template (Lebenslauf with photo) -->
+<div id="resume-pdf-template-de" style="position:fixed; top:0; left:0; z-index:-100; visibility:hidden; pointer-events:none;">
+<div style="font-family:'Times New Roman',Times,serif;width:210mm;margin:0;padding:16mm 20mm 16mm 20mm;color:#000;background:#fff;font-size:10.5pt;line-height:1.45;box-sizing:border-box;">
+
+  <!-- Header: Name + photo -->
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
+    <div>
+      <div style="font-size:22pt;font-weight:bold;letter-spacing:1.5px;margin-bottom:4px;">ROHIT SURYAA SARAVANAN</div>
+      <div style="font-size:10pt;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Data Scientist &amp; Software-Entwickler</div>
+      <div style="font-size:9.5pt;color:#333;">+49 160 96597803 &nbsp;&bull;&nbsp; <a href="mailto:rohitsuryaas21@gmail.com" style="color:#333;text-decoration:none;">rohitsuryaas21@gmail.com</a></div>
+      <div style="font-size:9.5pt;color:#333;margin-top:2px;"><a href="https://www.linkedin.com/in/rohit-suryaa-saravanan-197b33303/" style="color:#333;text-decoration:none;">linkedin.com/in/rohit-suryaa-saravanan-197b33303</a></div>
+      <div style="font-size:9.5pt;color:#333;margin-top:2px;">Fulda, Deutschland</div>
+    </div>
+    <img id="resume-photo-de" src="" style="width:90px;height:110px;object-fit:cover;object-position:center top;border:1px solid #ccc;flex-shrink:0;margin-left:16px;" />
+  </div>
+  <div style="border-top:1.5px solid #000;margin-bottom:13px;"></div>
+
+  <!-- 1. Persönliches Profil -->
+  <div style="margin-bottom:13px;">
+    <div style="font-size:12pt;font-weight:bold;border-bottom:1px solid #000;padding-bottom:3px;margin-bottom:7px;">Persönliches Profil</div>
+    <div style="font-size:10.5pt;color:#111;line-height:1.6;">
+      Hochschulabsolvent mit einem BTech in Big Data Computer Science und über einem Jahr Berufserfahrung als Softwareentwickler bei einem amerikanischen Cybersecurity-Startup. Derzeit im Masterstudium Data Science an der Hochschule Fulda. Fundierte Kenntnisse in Python, maschinellem Lernen und Full-Stack-Entwicklung mit praktischer Erfahrung im Aufbau skalierbarer Unternehmenssysteme und der Bereitstellung von ML-Modellen. Autor von 2 IEEE-Veröffentlichungen zu Predictive Analytics und Blockchain-basierten Finanzsystemen.
+    </div>
+  </div>
+
+  <!-- 2. Ausbildung -->
+  <div style="margin-bottom:13px;">
+    <div style="font-size:12pt;font-weight:bold;border-bottom:1px solid #000;padding-bottom:3px;margin-bottom:7px;">Ausbildung</div>
+    <div style="margin-bottom:8px;">
+      <div style="font-size:9.5pt;color:#555;font-style:italic;">Apr 2025 &mdash; heute</div>
+      <div><span style="font-weight:bold;">MSc in Data Science</span> &nbsp;|&nbsp; Hochschule Fulda, Deutschland</div>
+      <div style="font-size:9.5pt;color:#444;margin-top:2px;">Schwerpunkte: Maschinelles Lernen, Angewandte Mathematik, Data Mining &amp; Predictive Analytics, Big Data &amp; Verteilte Systeme, Datenvisualisierung &amp; BI, Process Mining, Datenethik &amp; DSGVO, Forschungsmethoden.</div>
+    </div>
+    <div>
+      <div style="font-size:9.5pt;color:#555;font-style:italic;">Aug 2020 &mdash; Nov 2024</div>
+      <div><span style="font-weight:bold;">BTech in Big Data Computer Science</span> &nbsp;|&nbsp; SRM University, Chennai, Indien</div>
+      <div style="font-size:9.5pt;color:#444;margin-top:2px;">Schwerpunkte: Datenstrukturen &amp; Algorithmen, Datenbankmanagement, Software Engineering, Rechnernetze, Betriebssysteme, OOP, Datenbanksicherheit, Compilerbau, Rechnerarchitektur.</div>
+    </div>
+  </div>
+
+  <!-- 3. Berufserfahrung -->
+  <div style="margin-bottom:13px;">
+    <div style="font-size:12pt;font-weight:bold;border-bottom:1px solid #000;padding-bottom:3px;margin-bottom:7px;">Berufserfahrung</div>
+    <div style="font-size:9.5pt;color:#555;font-style:italic;">Mrz 2024 &mdash; Apr 2025</div>
+    <div style="margin-bottom:5px;"><span style="font-weight:bold;">Associate Software Developer</span> &nbsp;|&nbsp; EigenSecure, USA (Remote)</div>
+    <div style="font-size:9.5pt;color:#444;margin-bottom:5px;font-style:italic;">Cybersecurity-Startup mit Fokus auf Information Security Management Plattformen.</div>
+    <div style="font-size:10pt;margin-bottom:4px;">Full-Stack-Entwicklung an einem skalierbaren ISMS-Produkt, Mitwirkung an Backend-Architektur, Datenpipelines und Cloud-Deployments im gesamten SDLC (Agile/Scrum).</div>
+    <ul style="margin:0;padding-left:18px;font-size:10pt;color:#111;">
+      <li style="margin-bottom:4px;">Entwicklung und Wartung eines skalierbaren ISMS für Unternehmen: robuste Backend-Architektur, RESTful APIs und datenzentrische Workflows für zuverlässige Verarbeitung und Reporting.</li>
+      <li style="margin-bottom:4px;">Optimierung relationaler Datenbanken, komplexer SQL-Abfragen und Backend-Komponenten zur Verbesserung von Skalierbarkeit, Datendurchsatz und Anwendungsperformance.</li>
+      <li>Unterstützung von Cloud-Deployments und CI/CD-Pipelines in Agile/Scrum-Teams; Lieferung sicherer, produktionsreifer Systeme mit hoher Zuverlässigkeit und Wartbarkeit.</li>
+    </ul>
+  </div>
+
+  <!-- 4. Akademische Leistungen -->
+  <div style="margin-bottom:13px;">
+    <div style="font-size:12pt;font-weight:bold;border-bottom:1px solid #000;padding-bottom:3px;margin-bottom:7px;">Akademische Leistungen</div>
+    <ul style="margin:0;padding-left:18px;font-size:10pt;color:#111;">
+      <li style="margin-bottom:5px;">IEEE-Veröffentlichung: <em>Windmill Pitch Prediction &amp; Error Correction with Adaptive Control</em> (ICEMCE 2023) — XGBoost-Modell mit 26 Features; Pitch-Fehler von 8,6 % auf 2,3 % reduziert, 96 % Vorhersagegenauigkeit, +21 % Leistungssteigerung. DOI: 10.1109/ICEMCE57940.2023.10433983</li>
+      <li style="margin-bottom:5px;">IEEE-Veröffentlichung: <em>Empowering Small-Scale Farmers with DeFi via Ethereum Smart Contracts</em> (ICSCSS 2024) — dezentrales Agrarfinanzierungsframework mit automatisierter Kreditvergabe; digitale Transparenzrate von &lt;50 % auf ~80 % gesteigert. DOI: 10.1109/ICSCSS60660.2024.10625462</li>
+      <li style="margin-bottom:5px;">End-to-End Supply Chain Analytics Pipeline auf 100.000+ Olist-Transaktionen; SARIMA-Modell mit 18,5 % MAPE, EOQ-Optimierung und interaktivem Plotly Dash Dashboard.</li>
+      <li>Mitarbeiter-Fluktuationsvorhersage mit Feature Engineering und EDA auf Kaggle-Datensatz; umsetzbare HR-Erkenntnisse mittels Scikit-learn.</li>
+    </ul>
+  </div>
+
+  <!-- 5. Kenntnisse & Fähigkeiten -->
+  <div style="margin-bottom:13px;">
+    <div style="font-size:12pt;font-weight:bold;border-bottom:1px solid #000;padding-bottom:3px;margin-bottom:7px;">Kenntnisse &amp; Fähigkeiten</div>
+    <ul style="margin:0;padding-left:18px;font-size:10pt;color:#111;">
+      <li style="margin-bottom:4px;"><span style="font-weight:bold;">Datenanalyse &amp; ML:</span> Python, NumPy, Pandas, Scikit-learn, PyTorch, XGBoost, Matplotlib, Seaborn, SARIMA, Zeitreihenprognose</li>
+      <li style="margin-bottom:4px;"><span style="font-weight:bold;">Backend-Entwicklung:</span> Python, Java, Flask, .NET, Express.js, Solidity, RESTful API Design</li>
+      <li style="margin-bottom:4px;"><span style="font-weight:bold;">Frontend:</span> React.js, HTML/CSS, TailwindCSS, MudBlazor, XML</li>
+      <li style="margin-bottom:4px;"><span style="font-weight:bold;">Datenbanken:</span> MySQL, PostgreSQL, MongoDB, komplexes SQL, Abfrageoptimierung</li>
+      <li style="margin-bottom:4px;"><span style="font-weight:bold;">DevOps &amp; Cloud:</span> Azure, Docker, Jenkins, CI/CD-Pipelines, Git, Subversion</li>
+      <li style="margin-bottom:4px;"><span style="font-weight:bold;">Blockchain &amp; API:</span> Web3.py, Ganache, Ethereum Smart Contracts, Stripe API</li>
+      <li><span style="font-weight:bold;">Soft Skills:</span> Agile/Scrum, technische Dokumentation, interdisziplinäre Zusammenarbeit, wissenschaftliches Schreiben</li>
+    </ul>
+  </div>
+
+  <!-- 6. Zertifizierungen -->
+  <div style="margin-bottom:13px;">
+    <div style="font-size:12pt;font-weight:bold;border-bottom:1px solid #000;padding-bottom:3px;margin-bottom:7px;">Zertifizierungen</div>
+    <ul style="margin:0;padding-left:18px;font-size:10pt;color:#111;">
+      <li style="margin-bottom:3px;">Supply Chain Specialist Certificate &mdash; Airbus Beyond</li>
+      <li style="margin-bottom:3px;">IBM Data Science Professional Certificate &mdash; Coursera</li>
+      <li style="margin-bottom:3px;">Complete Data Science Bootcamp 2026 &mdash; 365 Careers &middot; Udemy</li>
+      <li>Google Data Analytics Certificate &mdash; Coursera</li>
+    </ul>
+  </div>
+
+  <!-- 7. Portfolio -->
+  <div style="margin-bottom:13px;">
+    <div style="font-size:12pt;font-weight:bold;border-bottom:1px solid #000;padding-bottom:3px;margin-bottom:7px;">Portfolio</div>
+    <ul style="margin:0;padding-left:18px;font-size:10pt;color:#111;">
+      <li style="margin-bottom:4px;"><span style="font-weight:bold;">Windmill Pitch Prediction:</span> <a href="https://github.com/srohitsuryaa21/windmill-pitch-prediction" style="color:#1a472a;text-decoration:none;">github.com/srohitsuryaa21/windmill-pitch-prediction</a></li>
+      <li style="margin-bottom:4px;"><span style="font-weight:bold;">DeFi Farmer Platform:</span> <a href="https://github.com/srohitsuryaa21/defi_Farmer_Platform" style="color:#1a472a;text-decoration:none;">github.com/srohitsuryaa21/defi_Farmer_Platform</a></li>
+      <li style="margin-bottom:4px;"><span style="font-weight:bold;">Supply Chain Forecasting:</span> <a href="https://github.com/srohitsuryaa21/supply-chain-forecasting" style="color:#1a472a;text-decoration:none;">github.com/srohitsuryaa21/supply-chain-forecasting</a></li>
+      <li style="margin-bottom:4px;"><span style="font-weight:bold;">Employee Attrition Prediction:</span> <a href="https://github.com/srohitsuryaa21/employee-attrition-prediction" style="color:#1a472a;text-decoration:none;">github.com/srohitsuryaa21/employee-attrition-prediction</a></li>
+      <li><span style="font-weight:bold;">Portfolio Website:</span> <a href="https://github.com/srohitsuryaa21/rohit_portfolio_website" style="color:#1a472a;text-decoration:none;">github.com/srohitsuryaa21/rohit_portfolio_website</a></li>
+    </ul>
+  </div>
+
+  <!-- 8. Sprachkenntnisse -->
+  <div>
+    <div style="font-size:12pt;font-weight:bold;border-bottom:1px solid #000;padding-bottom:3px;margin-bottom:7px;">Sprachkenntnisse</div>
+    <div style="font-size:10.5pt;">Englisch (Fließend) &nbsp;&bull;&nbsp; Tamilisch (Muttersprache) &nbsp;&bull;&nbsp; Deutsch (A2 &mdash; Laufend)</div>
+  </div>
+
+</div>
+</div>
+
+<!-- Language selection modal -->
+<div id="resume-lang-modal" style="display:none; position:fixed; inset:0; z-index:10000; align-items:center; justify-content:center;" onclick="if(event.target===this)closeResumeModal()">
+  <div style="position:absolute;inset:0;background:rgba(0,0,0,0.55);backdrop-filter:blur(4px);"></div>
+  <div class="resume-modal" style="position:relative;z-index:1;">
+    <h3 data-en="Choose Resume Language" data-de="Sprache wählen">Choose Resume Language</h3>
+    <p data-en="Which language would you like the resume in?" data-de="In welcher Sprache möchten Sie den Lebenslauf?">Which language would you like the resume in?</p>
+    <div class="resume-modal-btns">
+      <button onclick="doGenerateResume('en')" class="btn-primary">🇬🇧 English</button>
+      <button onclick="doGenerateResume('de')" class="btn-outline">🇩🇪 Deutsch</button>
+    </div>
+    <button class="resume-modal-cancel" onclick="closeResumeModal()" data-en="Cancel" data-de="Abbrechen">Cancel</button>
+  </div>
+</div>
+
+<script>
+  function openResumeModal() {
+    const modal = document.getElementById('resume-lang-modal');
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeResumeModal() {
+    const modal = document.getElementById('resume-lang-modal');
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  function doGenerateResume(lang) {
+    closeResumeModal();
+    const templateId = lang === 'de' ? 'resume-pdf-template-de' : 'resume-pdf-template-en';
+    const wrapper = document.getElementById(templateId);
+
+    const photoId = lang === 'de' ? 'resume-photo-de' : 'resume-photo-en';
+    const photoImg = document.getElementById(photoId);
+    photoImg.src = 'DSC_0753.JPG';
+    photoImg.crossOrigin = 'anonymous';
+
+    wrapper.style.visibility = 'visible';
+    wrapper.style.zIndex = '9999';
+
+    const filename = lang === 'de'
+      ? 'Rohit_Suryaa_Saravanan_Lebenslauf.pdf'
+      : 'Rohit_Suryaa_Saravanan_Resume.pdf';
+
+    const opt = {
+      margin: [10, 0, 10, 0],
+      filename: filename,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true, logging: false, scrollY: 0, scrollX: 0 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      pagebreak: { mode: ['avoid-all', 'css'] }
+    };
+
+    const inner = wrapper.querySelector('div');
+
+    requestAnimationFrame(function() {
+      html2pdf().set(opt).from(inner).save().then(function() {
+        wrapper.style.visibility = 'hidden';
+        wrapper.style.zIndex = '-100';
+      });
+    });
+  }
 </script>
 
 </body>
