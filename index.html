@@ -460,7 +460,34 @@
     font-size: 0.8rem;
   }
 
+  /* RESUME LOADING OVERLAY */
+  .resume-spinner {
+    width: 52px; height: 52px;
+    border: 3px solid rgba(200,169,110,0.2);
+    border-top-color: #c8a96e;
+    border-radius: 50%;
+    animation: spin 0.85s linear infinite;
+    margin: 0 auto 1.6rem;
+  }
+  #resume-loading {
+    position: fixed; inset: 0; z-index: 10001;
+    background: rgba(10,10,8,0.93);
+    display: none; align-items: center; justify-content: center;
+    backdrop-filter: blur(8px);
+    transition: opacity 0.35s ease;
+  }
+  #resume-loading.fade-out { opacity: 0; pointer-events: none; }
+  .resume-loading-inner { text-align: center; }
+  .resume-loading-title {
+    font-family: var(--font-display); font-size: 1.4rem;
+    font-weight: 700; color: #f0ede8;
+    letter-spacing: -0.01em; margin-bottom: 6px;
+  }
+  .resume-loading-sub { font-size: 0.82rem; color: rgba(240,237,232,0.45); }
+  .resume-loading-flag { font-size: 1.6rem; display: block; margin-bottom: 1.4rem; }
+
   /* ANIMATIONS */
+  @keyframes spin { to { transform: rotate(360deg); } }
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(24px); }
     to { opacity: 1; transform: translateY(0); }
@@ -1188,6 +1215,16 @@
 </div>
 </div>
 
+<!-- Resume loading overlay -->
+<div id="resume-loading">
+  <div class="resume-loading-inner">
+    <span class="resume-loading-flag" id="resume-loading-flag">📄</span>
+    <div class="resume-spinner"></div>
+    <div class="resume-loading-title" id="resume-loading-title">Generating your resume</div>
+    <div class="resume-loading-sub" id="resume-loading-sub">Hang tight — this takes a few seconds</div>
+  </div>
+</div>
+
 <!-- Language selection modal -->
 <div id="resume-lang-modal" style="display:none; position:fixed; inset:0; z-index:10000; align-items:center; justify-content:center;" onclick="if(event.target===this)closeResumeModal()">
   <div style="position:absolute;inset:0;background:rgba(0,0,0,0.55);backdrop-filter:blur(4px);"></div>
@@ -1217,36 +1254,41 @@
 
   function doGenerateResume(lang) {
     closeResumeModal();
-    const templateId = lang === 'de' ? 'resume-pdf-template-de' : 'resume-pdf-template-en';
-    const wrapper = document.getElementById(templateId);
 
-    const photoId = lang === 'de' ? 'resume-photo-de' : 'resume-photo-en';
-    const photoImg = document.getElementById(photoId);
+    // Show loading overlay
+    const loading = document.getElementById('resume-loading');
+    const isDE = lang === 'de';
+    document.getElementById('resume-loading-flag').textContent = isDE ? '🇩🇪' : '🇬🇧';
+    document.getElementById('resume-loading-title').textContent = isDE ? 'Lebenslauf wird erstellt' : 'Generating your resume';
+    document.getElementById('resume-loading-sub').textContent  = isDE ? 'Einen Moment bitte…' : 'Hang tight — this takes a few seconds';
+    loading.classList.remove('fade-out');
+    loading.style.display = 'flex';
+
+    // Inject photo — template renders behind the overlay (z-index 9999 < 10001)
+    const wrapper = document.getElementById(isDE ? 'resume-pdf-template-de' : 'resume-pdf-template-en');
+    const photoImg = document.getElementById(isDE ? 'resume-photo-de' : 'resume-photo-en');
     photoImg.src = 'DSC_0753.JPG';
     photoImg.crossOrigin = 'anonymous';
-
     wrapper.style.visibility = 'visible';
     wrapper.style.zIndex = '9999';
 
-    const filename = lang === 'de'
-      ? 'Rohit_Suryaa_Saravanan_Lebenslauf.pdf'
-      : 'Rohit_Suryaa_Saravanan_Resume.pdf';
-
     const opt = {
       margin: [10, 0, 10, 0],
-      filename: filename,
+      filename: isDE ? 'Rohit_Suryaa_Saravanan_Lebenslauf.pdf' : 'Rohit_Suryaa_Saravanan_Resume.pdf',
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: { scale: 2, useCORS: true, logging: false, scrollY: 0, scrollX: 0 },
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
       pagebreak: { mode: ['avoid-all', 'css'] }
     };
 
-    const inner = wrapper.querySelector('div');
-
     requestAnimationFrame(function() {
-      html2pdf().set(opt).from(inner).save().then(function() {
+      html2pdf().set(opt).from(wrapper.querySelector('div')).save().then(function() {
+        // Hide template
         wrapper.style.visibility = 'hidden';
         wrapper.style.zIndex = '-100';
+        // Fade overlay out, then hide
+        loading.classList.add('fade-out');
+        setTimeout(function() { loading.style.display = 'none'; }, 370);
       });
     });
   }
