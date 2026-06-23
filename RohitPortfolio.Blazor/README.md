@@ -1,6 +1,6 @@
 # Rohit Portfolio — Blazor
 
-This is the upgraded C#/Blazor WebAssembly portfolio: an editorial, interaction-led experience built around measurable project outcomes rather than a conventional résumé layout.
+This is the upgraded C#/Blazor WebAssembly portfolio: an editorial, interaction-led experience built around measurable project outcomes rather than a conventional resume layout.
 
 ## Experience features
 
@@ -12,7 +12,7 @@ This is the upgraded C#/Blazor WebAssembly portfolio: an editorial, interaction-
 - Filterable project case studies with challenge/approach/outcome details
 - Interactive Blazor ML trade-off simulator
 - Command palette (`Ctrl/Cmd + K`)
-- Clipboard contact action and print-ready bilingual résumé
+- Clipboard contact action
 - Mobile navigation and mobile-specific layouts
 
 ## Requirements
@@ -37,7 +37,7 @@ dotnet run --project RohitPortfolio.Blazor
 - `Pages/ProjectCard.razor` — reusable measurable case-study card
 - `Pages/SectionHeading.razor` — reusable section heading
 - `wwwroot/css/app.css` — complete responsive styling and dark theme
-- `wwwroot/js/portfolio.js` — scroll observers, active navigation, counters, tilt/magnetic interactions, theme persistence, and printable résumé
+- `wwwroot/js/portfolio.js` — scroll observers, active navigation, counters, tilt/magnetic interactions, theme persistence, and keyboard shortcuts
 - `wwwroot/images/rohit.jpg` — profile image
 
 ## Deployment
