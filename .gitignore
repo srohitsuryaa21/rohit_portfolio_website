@@ -1,4 +1,6 @@
 .vs/
+.chrome-linkedin-profile/
+.site-publish/
 **/bin/
 **/obj/
 **/tmp/
