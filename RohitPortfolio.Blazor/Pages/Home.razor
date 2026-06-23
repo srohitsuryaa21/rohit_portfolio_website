@@ -1,0 +1,399 @@
+@page "/"
+@inject IJSRuntime JS
+
+<PageTitle>Rohit Suryaa Saravanan — Data Scientist & Software Engineer</PageTitle>
+
+<a class="skip-link" href="#main-content">Skip to content</a>
+<div class="scroll-progress" aria-hidden="true"><span></span></div>
+<div class="cursor-glow" aria-hidden="true"></div>
+
+<nav aria-label="Primary navigation">
+    <a class="nav-logo" href="#hero" aria-label="Rohit Suryaa Saravanan — Home">
+        <span>R</span><span class="logo-dot"></span><span>S</span>
+    </a>
+    <ul class="nav-links @(menuOpen ? "open" : "")">
+        @foreach (var item in NavItems)
+        {
+            <li><a href="#@item.Id" data-nav="@item.Id" @onclick="CloseMenu">@T(item.En, item.De)</a></li>
+        }
+    </ul>
+    <div class="nav-actions">
+        <button class="icon-button command-trigger" @onclick="OpenCommandPalette" aria-label="Open command menu">
+            <span>⌘</span><kbd>K</kbd>
+        </button>
+        <button class="icon-button" @onclick="ToggleLanguage" aria-label="Change language">@(isGerman ? "EN" : "DE")</button>
+        <button class="icon-button" @onclick="ToggleTheme" aria-label="Change color theme">@(isDark ? "☀" : "◐")</button>
+        <button class="mobile-menu-button" @onclick="ToggleMenu" aria-label="Toggle navigation" aria-expanded="@menuOpen">
+            <span></span><span></span>
+        </button>
+    </div>
+</nav>
+
+<main id="main-content">
+    <section id="hero" data-section>
+        <div class="hero-noise"></div>
+        <div class="hero-copy reveal">
+            <div class="eyebrow"><i></i>@T("Based in Fulda · Open to opportunities", "In Fulda · Offen für Möglichkeiten")</div>
+            <h1>
+                @T("I build reliable software", "Ich entwickle zuverlässige Software")
+                <span class="outline-text">@T("and intelligent data systems.", "und intelligente Datensysteme.")</span>
+            </h1>
+            <p class="hero-sub">
+                @T("Software Developer and Data Scientist with 1+ year of professional experience building backend systems, data products, machine learning solutions, and modern .NET applications.",
+                   "Softwareentwickler und Data Scientist mit über einem Jahr Berufserfahrung in Backend-Systemen, Datenprodukten, Machine Learning und modernen .NET-Anwendungen.")
+            </p>
+            <div class="hero-cta">
+                <a href="#work" class="btn-primary magnetic">@T("Explore selected work", "Projekte entdecken") <span>↘</span></a>
+                <a href="mailto:Rohitsuryaas21@gmail.com" class="btn-quiet">@T("Start a conversation", "Kontakt aufnehmen") ↗</a>
+            </div>
+            <div class="hero-meta">
+                <span><strong>02</strong> IEEE publications</span>
+                <span><strong>04+</strong> production projects</span>
+                <span><strong>DE / EN</strong> communication</span>
+            </div>
+        </div>
+
+        <div class="hero-stage reveal" data-tilt>
+            <div class="stage-chrome">
+                <span></span><span></span><span></span>
+                <small>rohit://intelligence-lab</small>
+            </div>
+            <div class="stage-grid">
+                <div class="portrait-panel">
+                    <div class="portrait-frame">
+                        <img src="images/rohit.jpg" alt="Portrait of Rohit Suryaa Saravanan" />
+                        <div class="scan-line"></div>
+                    </div>
+                    <div class="status-line"><i></i> SYSTEM ONLINE</div>
+                </div>
+                <div class="data-panel">
+                    <div class="data-label">MODEL PERFORMANCE</div>
+                    <strong class="counter" data-count="96">0</strong><b>%</b>
+                    <svg viewBox="0 0 280 95" role="img" aria-label="Rising model performance chart">
+                        <defs><linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="currentColor" stop-opacity=".35"/><stop offset="1" stop-color="currentColor" stop-opacity="0"/></linearGradient></defs>
+                        <path class="chart-area" d="M0,82 C30,76 43,66 67,70 S107,45 132,54 S173,32 197,38 S235,13 280,8 L280,95 L0,95Z"/>
+                        <path class="chart-line" d="M0,82 C30,76 43,66 67,70 S107,45 132,54 S173,32 197,38 S235,13 280,8"/>
+                    </svg>
+                    <div class="data-row"><span>ERROR RATE</span><strong>2.3%</strong></div>
+                    <div class="data-row"><span>POWER GAIN</span><strong>+21%</strong></div>
+                </div>
+            </div>
+            <div class="floating-chip chip-one">Python</div>
+            <div class="floating-chip chip-two">C# / .NET</div>
+            <div class="floating-chip chip-three">ML Systems</div>
+        </div>
+        <a class="scroll-cue" href="#about"><span></span>@T("Scroll to explore", "Scrollen zum Entdecken")</a>
+    </section>
+
+    <section id="about" class="section-shell" data-section>
+        <div class="section-number">01</div>
+        <div class="section-intro reveal">
+            <div class="section-label">@T("Positioning", "Positionierung")</div>
+            <h2>@T("Engineering discipline.", "Technische Disziplin.")<br /><em>@T("Research curiosity.", "Neugier in der Forschung.")</em></h2>
+        </div>
+        <div class="about-layout">
+            <div class="about-statement reveal">
+                <p>@T(
+                    "I work where data science meets software engineering. That means I care about the model, but also the API around it, the interface people use, the deployment pipeline, and whether the result creates measurable value.",
+                    "Ich arbeite an der Schnittstelle von Data Science und Software Engineering. Das bedeutet: Nicht nur das Modell zählt, sondern auch API, Benutzeroberfläche, Deployment und messbarer Nutzen.")
+                </p>
+                <p>@T(
+                    "Currently pursuing an MSc in Data Science at Hochschule Fulda after building enterprise systems for a US cybersecurity startup.",
+                    "Aktuell absolviere ich den M.Sc. Data Science an der Hochschule Fulda, nachdem ich Enterprise-Systeme für ein US-Cybersecurity-Startup entwickelt habe.")
+                </p>
+            </div>
+            <div class="principles reveal">
+                @foreach (var principle in Principles)
+                {
+                    <article><span>@principle.Number</span><div><h3>@T(principle.En, principle.De)</h3><p>@T(principle.BodyEn, principle.BodyDe)</p></div></article>
+                }
+            </div>
+        </div>
+    </section>
+
+    <section id="work" class="section-shell work-section" data-section>
+        <div class="section-number">02</div>
+        <div class="section-intro reveal">
+            <div>
+                <div class="section-label">@T("Selected work", "Ausgewählte Projekte")</div>
+                <h2>@T("Proof, not promises.", "Belege statt Versprechen.")</h2>
+            </div>
+            <div class="filter-tabs" role="group" aria-label="Project filters">
+                @foreach (var filter in ProjectFilters)
+                {
+                    <button class="@(activeFilter == filter.Key ? "active" : "")" @onclick="() => activeFilter = filter.Key">@T(filter.En, filter.De)</button>
+                }
+            </div>
+        </div>
+        <div class="project-list reveal">
+            @foreach (var project in FilteredProjects)
+            {
+                <ProjectCard Project="project" German="isGerman" @key="project.Number" />
+            }
+        </div>
+    </section>
+
+    <section id="lab" class="section-shell lab-section" data-section>
+        <div class="section-number">03</div>
+        <div class="section-intro reveal">
+            <div class="section-label">@T("Interactive lab", "Interaktives Labor")</div>
+            <h2>@T("Tune the model.", "Modell konfigurieren.")<br /><em>@T("See the trade-offs.", "Trade-offs verstehen.")</em></h2>
+        </div>
+        <div class="lab-console reveal">
+            <div class="lab-controls">
+                <div class="control-heading">
+                    <span>EXPERIMENT / 0042</span>
+                    <i>LIVE SIMULATION</i>
+                </div>
+                <label>
+                    <span><b>@T("Model complexity", "Modellkomplexität")</b><output>@complexity%</output></span>
+                    <input type="range" min="10" max="100" @bind="complexity" @bind:event="oninput" />
+                </label>
+                <label>
+                    <span><b>@T("Training data", "Trainingsdaten")</b><output>@trainingData%</output></span>
+                    <input type="range" min="10" max="100" @bind="trainingData" @bind:event="oninput" />
+                </label>
+                <label>
+                    <span><b>@T("Regularization", "Regularisierung")</b><output>@regularization%</output></span>
+                    <input type="range" min="0" max="100" @bind="regularization" @bind:event="oninput" />
+                </label>
+                <div class="model-selector">
+                    @foreach (var model in Models)
+                    {
+                        <button class="@(selectedModel == model ? "active" : "")" @onclick="() => selectedModel = model">@model</button>
+                    }
+                </div>
+            </div>
+            <div class="lab-output">
+                <div class="metric-ring" style="--value:@Accuracy">
+                    <div><strong>@Accuracy%</strong><span>ACCURACY</span></div>
+                </div>
+                <div class="metric-stack">
+                    <div><span>INFERENCE</span><strong>@Latency ms</strong><i style="--bar:@(100 - Math.Min(Latency, 100))%"></i></div>
+                    <div><span>ROBUSTNESS</span><strong>@Robustness%</strong><i style="--bar:@Robustness%"></i></div>
+                    <div><span>OVERFIT RISK</span><strong>@OverfitRisk%</strong><i class="risk" style="--bar:@OverfitRisk%"></i></div>
+                </div>
+                <p class="lab-insight">@ModelInsight</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="section-shell experience-section" data-section>
+        <div class="section-number">04</div>
+        <div class="section-intro reveal">
+            <div class="section-label">@T("Experience & toolkit", "Erfahrung & Werkzeuge")</div>
+            <h2>@T("Built across the stack.", "Über den gesamten Stack.")</h2>
+        </div>
+        <div class="experience-grid">
+            <article class="experience-card reveal">
+                <div class="experience-date">2024 — 2025</div>
+                <h3>Software Developer</h3>
+                <a href="#contact">EigenSecure · USA / Remote ↗</a>
+                <p>@T("Built scalable enterprise software for a cybersecurity startup: backend APIs, data workflows, responsive interfaces, and delivery automation in an Agile team.",
+                    "Skalierbare Enterprise-Software für ein Cybersecurity-Startup: Backend-APIs, Datenworkflows, responsive Oberflächen und Delivery-Automatisierung.")</p>
+                <div class="impact-row"><span>REST APIs</span><span>Enterprise UI</span><span>Agile delivery</span></div>
+            </article>
+            <div class="tool-cloud reveal">
+                @foreach (var skill in Skills)
+                {
+                    <div class="tool-group">
+                        <span>@skill.Label</span>
+                        <div>@foreach (var tag in skill.Tags) { <b>@tag</b> }</div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+
+    <section id="education" class="section-shell education-section" data-section>
+        <div class="section-number">05</div>
+        <div class="section-intro reveal">
+            <div class="section-label">@T("Education & credentials", "Ausbildung & Zertifikate")</div>
+            <h2>@T("Always in learning mode.", "Immer im Lernmodus.")</h2>
+        </div>
+        <div class="education-timeline reveal">
+            <article><time>2025 — @T("Present", "Heute")</time><div><h3>MSc Data Science</h3><p>Hochschule Fulda · Germany</p></div><span>01</span></article>
+            <article><time>2020 — 2024</time><div><h3>BTech Big Data Computer Science</h3><p>SRM University · Chennai, India</p></div><span>02</span></article>
+        </div>
+        <div class="credential-marquee" aria-label="Certifications">
+            <div>
+                @foreach (var cert in Certifications.Concat(Certifications))
+                {
+                    <span><i>✦</i> @cert</span>
+                }
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section" data-section>
+        <div class="contact-orb"></div>
+        <div class="contact-inner reveal">
+            <div class="section-label">@T("Have a problem worth solving?", "Ein Problem, das gelöst werden sollte?")</div>
+            <h2>@T("Let’s build something", "Lass uns etwas bauen,")<br /><em>@T("that earns attention.", "das Aufmerksamkeit verdient.")</em></h2>
+            <p>@T("Open to C#/.NET software development, backend engineering, data engineering, data science, machine learning, and research opportunities in Germany and beyond.",
+                "Offen für C#/.NET-Softwareentwicklung, Backend Engineering, Data Engineering, Data Science, Machine Learning und Forschung in Deutschland und darüber hinaus.")</p>
+            <div class="contact-role-list" aria-label="Target roles">
+                <span>C# / .NET</span><span>Software Development</span><span>Backend Engineering</span><span>Data & ML</span>
+            </div>
+            <div class="contact-actions">
+                <a href="mailto:Rohitsuryaas21@gmail.com" class="contact-email magnetic">Rohitsuryaas21@gmail.com <span>↗</span></a>
+                <button class="copy-button" @onclick="CopyEmail">@(emailCopied ? T("Copied!", "Kopiert!") : T("Copy email", "E-Mail kopieren"))</button>
+            </div>
+            <div class="social-row">
+                <a target="_blank" rel="noopener" href="https://github.com/srohitsuryaa21">GitHub ↗</a>
+                <a target="_blank" rel="noopener" href="https://www.linkedin.com/in/rohit-suryaa-saravanan-197b33303/">LinkedIn ↗</a>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <span>© 2026 Rohit Suryaa Saravanan</span>
+    <span>@T("Designed and engineered with C#, Blazor & JavaScript", "Entworfen und entwickelt mit C#, Blazor & JavaScript")</span>
+    <a href="#hero">Back to top ↑</a>
+</footer>
+
+@if (commandPaletteOpen)
+{
+    <div class="modal-backdrop command-backdrop" @onclick="CloseCommandPalette">
+        <div class="command-palette" @onclick:stopPropagation>
+            <button class="modal-close command-close" @onclick="CloseCommandPalette" aria-label="Close command menu">×</button>
+            <div class="command-search"><span>⌘</span><input placeholder="@T("Jump to…", "Springe zu…")" @bind="commandQuery" @bind:event="oninput" autofocus /></div>
+            <div class="command-results">
+                @foreach (var command in FilteredCommands)
+                {
+                    <a href="@command.Url" @onclick="CloseCommandPalette"><span>@command.Icon</span><div><strong>@T(command.En, command.De)</strong><small>@command.Hint</small></div><kbd>↵</kbd></a>
+                }
+            </div>
+            <small class="command-footer">ESC @T("to close", "zum Schließen") · ↑↓ @T("to navigate", "zum Navigieren")</small>
+        </div>
+    </div>
+}
+
+@code {
+    private bool isDark;
+    private bool isGerman;
+    private bool menuOpen;
+    private bool commandPaletteOpen;
+    private bool emailCopied;
+    private string commandQuery = "";
+    private string activeFilter = "all";
+    private string selectedModel = "XGBoost";
+    private int complexity = 72;
+    private int trainingData = 86;
+    private int regularization = 38;
+
+    private int Accuracy => Math.Clamp(70 + trainingData / 5 + complexity / 8 - Math.Abs(regularization - 42) / 6 + (selectedModel == "XGBoost" ? 3 : selectedModel == "Neural Net" ? 2 : 0), 72, 99);
+    private int Latency => Math.Clamp(8 + complexity / 2 + (selectedModel == "Neural Net" ? 28 : selectedModel == "Random Forest" ? 15 : 4), 12, 98);
+    private int Robustness => Math.Clamp(50 + trainingData / 3 + regularization / 4, 55, 98);
+    private int OverfitRisk => Math.Clamp(complexity / 2 - trainingData / 4 - regularization / 5 + 35, 4, 86);
+    private string ModelInsight => T(
+        $"{selectedModel} currently balances {Accuracy}% accuracy with {Latency} ms inference. Increase regularization if stability matters more than peak fit.",
+        $"{selectedModel} erreicht aktuell {Accuracy}% Genauigkeit bei {Latency} ms Inferenz. Mehr Regularisierung verbessert die Stabilität.");
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+        isDark = await JS.InvokeAsync<bool>("portfolio.isDark");
+        await JS.InvokeVoidAsync("portfolio.initExperience");
+        StateHasChanged();
+    }
+
+    private string T(string en, string de) => isGerman ? de : en;
+    private void ToggleLanguage() => isGerman = !isGerman;
+    private void ToggleMenu() => menuOpen = !menuOpen;
+    private void CloseMenu() => menuOpen = false;
+    private void OpenCommandPalette() { commandPaletteOpen = true; commandQuery = ""; }
+    private void CloseCommandPalette() => commandPaletteOpen = false;
+
+    private async Task ToggleTheme()
+    {
+        isDark = !isDark;
+        await JS.InvokeVoidAsync("portfolio.setTheme", isDark);
+    }
+
+    private async Task CopyEmail()
+    {
+        await JS.InvokeVoidAsync("navigator.clipboard.writeText", "Rohitsuryaas21@gmail.com");
+        emailCopied = true;
+        await Task.Delay(1800);
+        emailCopied = false;
+    }
+
+    private IEnumerable<PortfolioProject> FilteredProjects => activeFilter == "all" ? Projects : Projects.Where(p => p.Category.Equals(activeFilter, StringComparison.OrdinalIgnoreCase));
+    private IEnumerable<Command> FilteredCommands => Commands.Where(c => string.IsNullOrWhiteSpace(commandQuery) || c.En.Contains(commandQuery, StringComparison.OrdinalIgnoreCase) || c.Hint.Contains(commandQuery, StringComparison.OrdinalIgnoreCase));
+
+    private static readonly (string Id, string En, string De)[] NavItems =
+    [
+        ("about", "About", "Über mich"), ("work", "Work", "Projekte"), ("lab", "Lab", "Labor"),
+        ("experience", "Experience", "Erfahrung"), ("education", "Education", "Ausbildung"), ("contact", "Contact", "Kontakt")
+    ];
+
+    private static readonly (string Key, string En, string De)[] ProjectFilters =
+    [
+        ("all", "All work", "Alle"), ("Research", "Research", "Forschung"), ("Machine Learning", "Machine learning", "Machine Learning"), ("Data Engineering", "Data engineering", "Data Engineering")
+    ];
+
+    private static readonly Principle[] Principles =
+    [
+        new("01", "Measure the outcome", "Ergebnisse messen", "A model is only useful when it improves a decision, process, or product.", "Ein Modell ist nur wertvoll, wenn es Entscheidungen, Prozesse oder Produkte verbessert."),
+        new("02", "Build for production", "Für Produktion bauen", "Clean APIs, observable systems, maintainable code, and deliberate trade-offs.", "Saubere APIs, beobachtbare Systeme, wartbarer Code und bewusste Trade-offs."),
+        new("03", "Explain the complexity", "Komplexität erklären", "Clear communication turns technical depth into shared understanding.", "Klare Kommunikation macht technische Tiefe gemeinsam verständlich.")
+    ];
+
+    private static readonly PortfolioProject[] Projects =
+    [
+        new("01", "Research", "Windmill Pitch Prediction", "Windkraft-Pitch-Vorhersage",
+            "An adaptive prediction system that turns live turbine data into more precise pitch control and measurable power gains.",
+            "Ein adaptives Vorhersagesystem, das Live-Turbinendaten in präzisere Pitch-Steuerung und messbare Leistungssteigerung übersetzt.",
+            ["XGBoost", "Time Series", "Feature Engineering", "Python"],
+            "https://github.com/srohitsuryaa21/windmill-pitch-prediction", "https://doi.org/10.1109/ICEMCE57940.2023.10433983",
+            "+21%", "POWER OUTPUT", "Pitch-control errors reduced turbine efficiency and created unstable output.", "Engineered 26 temporal features and combined XGBoost prediction with a residual-correction layer.", "96% prediction accuracy, error reduced from 8.6% to 2.3%, and power output increased by 21%.", "visual-wind"),
+        new("02", "Data Engineering", "Supply Chain Intelligence", "Supply-Chain-Intelligence",
+            "An end-to-end analytics pipeline for 100,000+ e-commerce transactions, joining forecasting, inventory optimization, delivery analytics, and seller risk.",
+            "Eine End-to-End-Analytics-Pipeline für über 100.000 E-Commerce-Transaktionen mit Prognose, Bestandsoptimierung und Risikobewertung.",
+            ["SARIMA", "XGBoost", "Plotly Dash", "Python"],
+            "https://github.com/srohitsuryaa21/supply-chain-forecasting", null,
+            "18.5%", "FORECAST MAPE", "Fragmented operational data made demand, delivery, and seller risk difficult to act on.", "Built a staged forecasting benchmark, EOQ optimization, risk scoring, and interactive decision dashboard.", "Sub-20% benchmark MAPE, 92.1% on-time analysis across 110,123 orders, and risk scores for 881 sellers.", "visual-supply"),
+        new("03", "Research", "DeFi Farmer Platform", "DeFi-Plattform für Landwirte",
+            "A transparent agricultural finance system using smart contracts to automate loans, payments, insurance, and supply-chain traceability.",
+            "Ein transparentes Agrarfinanzsystem mit Smart Contracts für Kredite, Zahlungen, Versicherungen und Lieferketten.",
+            ["Ethereum", "Solidity", "Web3.py", "Smart Contracts"],
+            "https://github.com/srohitsuryaa21/defi_Farmer_Platform", "https://doi.org/10.1109/ICSCSS60660.2024.10625462",
+            "~80%", "DIGITAL ADOPTION", "Small farmers faced opaque lending and low trust across disconnected finance and supply-chain processes.", "Designed Ethereum contracts with a Web3.py backend and local Ganache validation environment.", "Automated core financial workflows and increased modeled digital transparency adoption from below 50% to about 80%.", "visual-defi"),
+        new("04", "Machine Learning", "Employee Attrition Prediction", "Vorhersage der Mitarbeiterfluktuation",
+            "A human-resources decision model that moves beyond prediction to explain the factors driving employee attrition.",
+            "Ein HR-Entscheidungsmodell, das nicht nur vorhersagt, sondern die Treiber der Mitarbeiterfluktuation erklärt.",
+            ["Scikit-learn", "EDA", "Classification", "Explainability"],
+            "https://github.com/srohitsuryaa21/employee-attrition-prediction", null,
+            "360°", "WORKFORCE VIEW", "HR teams needed a defensible way to identify retention risks hidden across workforce variables.", "Combined exploratory analysis, feature engineering, model comparison, and interpretable driver analysis.", "Produced actionable retention signals and a repeatable workflow for evaluating workforce risk.", "visual-attrition")
+    ];
+
+    private static readonly SkillSet[] Skills =
+    [
+        new("DATA / ML", ["Python", "Pandas", "Scikit-learn", "XGBoost", "TensorFlow", "Time Series"]),
+        new("ENGINEERING", ["C#", ".NET", "Java", "Spring Boot", "REST APIs", "Blazor"]),
+        new("DATA PLATFORMS", ["PostgreSQL", "MySQL", "MongoDB", "Plotly", "Complex SQL"]),
+        new("DELIVERY", ["Azure", "Docker", "Jenkins", "CI/CD", "Git", "Agile"])
+    ];
+
+    private static readonly string[] Certifications =
+    [
+        "Airbus Supply Chain Specialist", "IBM Data Science Professional", "Google Data Analytics", "Data Science Bootcamp 2026"
+    ];
+
+    private static readonly string[] Models = ["XGBoost", "Random Forest", "Neural Net"];
+
+    private static readonly Command[] Commands =
+    [
+        new("⌁", "Selected work", "Ausgewählte Projekte", "#work", "Research and production projects"),
+        new("◈", "Interactive ML lab", "Interaktives ML-Labor", "#lab", "Tune a model simulation"),
+        new("◎", "Experience", "Erfahrung", "#experience", "Roles and technical toolkit"),
+        new("↗", "Send an email", "E-Mail senden", "mailto:Rohitsuryaas21@gmail.com", "Start a conversation"),
+        new("⌘", "GitHub profile", "GitHub-Profil", "https://github.com/srohitsuryaa21", "Browse source code")
+    ];
+
+    private sealed record Principle(string Number, string En, string De, string BodyEn, string BodyDe);
+    private sealed record SkillSet(string Label, string[] Tags);
+    private sealed record Command(string Icon, string En, string De, string Url, string Hint);
+}

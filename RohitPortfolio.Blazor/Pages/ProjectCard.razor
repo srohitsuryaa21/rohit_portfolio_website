@@ -1,0 +1,41 @@
+<article class="project-card" data-tilt>
+    <div class="project-visual @Project.VisualClass" aria-hidden="true">
+        <span class="project-index">@Project.Number</span>
+        <div class="visual-grid"></div>
+        <div class="visual-orbit orbit-one"></div>
+        <div class="visual-orbit orbit-two"></div>
+        <strong>@Project.Metric</strong>
+        <small>@Project.MetricLabel</small>
+    </div>
+    <div class="project-content">
+        <div class="project-kicker">@Project.Category</div>
+        <h3>@(German ? Project.TitleDe : Project.TitleEn)</h3>
+        <p>@(German ? Project.DescriptionDe : Project.DescriptionEn)</p>
+        <div class="project-foot">
+            @foreach (var tag in Project.Tags)
+            {
+                <span class="project-tag">@tag</span>
+            }
+        </div>
+        <details class="case-study">
+            <summary>@(German ? "Fallstudie ansehen" : "View case study") <span>+</span></summary>
+            <div class="case-study-grid">
+                <div><small>@(German ? "Problem" : "Challenge")</small><p>@Project.Challenge</p></div>
+                <div><small>@(German ? "Ansatz" : "Approach")</small><p>@Project.Approach</p></div>
+                <div><small>@(German ? "Ergebnis" : "Outcome")</small><p>@Project.Outcome</p></div>
+            </div>
+        </details>
+        <div class="project-links">
+            @if (!string.IsNullOrWhiteSpace(Project.PaperUrl))
+            {
+                <a class="text-link" target="_blank" rel="noopener" href="@Project.PaperUrl">IEEE paper ↗</a>
+            }
+            <a class="text-link" target="_blank" rel="noopener" href="@Project.GitHubUrl">Source code ↗</a>
+        </div>
+    </div>
+</article>
+
+@code {
+    [Parameter, EditorRequired] public PortfolioProject Project { get; set; } = default!;
+    [Parameter] public bool German { get; set; }
+}

@@ -1,0 +1,8 @@
+<div class="section-label">@Label</div>
+<h2>@Title</h2>
+<div class="divider"></div>
+
+@code {
+    [Parameter, EditorRequired] public string Label { get; set; } = "";
+    [Parameter, EditorRequired] public string Title { get; set; } = "";
+}
