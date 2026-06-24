@@ -46,6 +46,10 @@
                 <a href="#work" class="btn-primary magnetic">@T("Explore selected work", "Projekte entdecken") <span>↘</span></a>
                 <a href="mailto:Rohitsuryaas21@gmail.com" class="btn-quiet">@T("Start a conversation", "Kontakt aufnehmen") ↗</a>
             </div>
+            <a class="hero-nudge magnetic" href="#lab">
+                <span></span>
+                @T("New: scan my fit for your open role", "Neu: Rollen-Fit für Ihre Position prüfen")
+            </a>
             <div class="hero-meta">
                 <span><strong>02</strong> IEEE publications</span>
                 <span><strong>04+</strong> production projects</span>
@@ -136,44 +140,56 @@
     <section id="lab" class="section-shell lab-section" data-section>
         <div class="section-number">03</div>
         <div class="section-intro reveal">
-            <div class="section-label">@T("Interactive lab", "Interaktives Labor")</div>
-            <h2>@T("Tune the model.", "Modell konfigurieren.")<br /><em>@T("See the trade-offs.", "Trade-offs verstehen.")</em></h2>
+            <div class="section-label">@T("Role fit scanner", "Rollen-Fit-Scanner")</div>
+            <h2>@T("Pick a role.", "Rolle auswählen.")<br /><em>@T("See the proof.", "Belege sehen.")</em></h2>
         </div>
-        <div class="lab-console reveal">
-            <div class="lab-controls">
+        <div class="role-scanner reveal">
+            <div class="scanner-sidebar">
                 <div class="control-heading">
-                    <span>EXPERIMENT / 0042</span>
-                    <i>LIVE SIMULATION</i>
+                    <span>ROLE SCANNER / 2026</span>
+                    <i>@T("LIVE FIT MAP", "LIVE-FIT-MAP")</i>
                 </div>
-                <label>
-                    <span><b>@T("Model complexity", "Modellkomplexität")</b><output>@complexity%</output></span>
-                    <input type="range" min="10" max="100" @bind="complexity" @bind:event="oninput" />
-                </label>
-                <label>
-                    <span><b>@T("Training data", "Trainingsdaten")</b><output>@trainingData%</output></span>
-                    <input type="range" min="10" max="100" @bind="trainingData" @bind:event="oninput" />
-                </label>
-                <label>
-                    <span><b>@T("Regularization", "Regularisierung")</b><output>@regularization%</output></span>
-                    <input type="range" min="0" max="100" @bind="regularization" @bind:event="oninput" />
-                </label>
-                <div class="model-selector">
-                    @foreach (var model in Models)
+                <p>@T(
+                    "Recruiters scan fast. Choose a target path and the portfolio reorganizes around the evidence that matters: skills, outcomes, projects, and delivery style.",
+                    "Recruiter scannen schnell. Wählen Sie eine Zielrolle und das Portfolio zeigt die relevanten Belege: Skills, Ergebnisse, Projekte und Arbeitsweise.")</p>
+                <div class="role-options" role="list" aria-label="Target role options">
+                    @foreach (var role in RoleFits)
                     {
-                        <button class="@(selectedModel == model ? "active" : "")" @onclick="() => selectedModel = model">@model</button>
+                        <button class="@(selectedRole == role.Key ? "active" : "")" @onclick="() => SelectRole(role.Key)" role="listitem">
+                            <span>@role.Icon</span>
+                            <b>@T(role.TitleEn, role.TitleDe)</b>
+                            <small>@T(role.SignalEn, role.SignalDe)</small>
+                        </button>
                     }
                 </div>
             </div>
-            <div class="lab-output">
-                <div class="metric-ring" style="--value:@Accuracy">
-                    <div><strong>@Accuracy%</strong><span>ACCURACY</span></div>
+            <div class="scanner-output">
+                <div class="fit-topline">
+                    <div class="fit-orbit" style="--value:@SelectedRole.FitScore">
+                        <div><strong>@SelectedRole.FitScore%</strong><span>@T("ROLE FIT", "ROLLEN-FIT")</span></div>
+                    </div>
+                    <div class="fit-summary">
+                        <span>@T("Hiring signal", "Hiring-Signal")</span>
+                        <h3>@T(SelectedRole.HeadlineEn, SelectedRole.HeadlineDe)</h3>
+                        <p>@T(SelectedRole.BodyEn, SelectedRole.BodyDe)</p>
+                    </div>
                 </div>
-                <div class="metric-stack">
-                    <div><span>INFERENCE</span><strong>@Latency ms</strong><i style="--bar:@(100 - Math.Min(Latency, 100))%"></i></div>
-                    <div><span>ROBUSTNESS</span><strong>@Robustness%</strong><i style="--bar:@Robustness%"></i></div>
-                    <div><span>OVERFIT RISK</span><strong>@OverfitRisk%</strong><i class="risk" style="--bar:@OverfitRisk%"></i></div>
+                <div class="fit-evidence">
+                    @foreach (var evidence in SelectedEvidence)
+                    {
+                        <article>
+                            <span>0@(Array.IndexOf(SelectedEvidence, evidence) + 1)</span>
+                            <p>@evidence</p>
+                        </article>
+                    }
                 </div>
-                <p class="lab-insight">@ModelInsight</p>
+                <div class="fit-stack">
+                    @foreach (var tag in SelectedRole.Stack)
+                    {
+                        <span>@tag</span>
+                    }
+                </div>
+                <a class="fit-link magnetic" href="#work" @onclick="ApplySelectedRoleFilter">@T("Open matching proof", "Passende Belege öffnen") ↗</a>
             </div>
         </div>
     </section>
@@ -278,18 +294,9 @@
     private bool emailCopied;
     private string commandQuery = "";
     private string activeFilter = "all";
-    private string selectedModel = "XGBoost";
-    private int complexity = 72;
-    private int trainingData = 86;
-    private int regularization = 38;
-
-    private int Accuracy => Math.Clamp(70 + trainingData / 5 + complexity / 8 - Math.Abs(regularization - 42) / 6 + (selectedModel == "XGBoost" ? 3 : selectedModel == "Neural Net" ? 2 : 0), 72, 99);
-    private int Latency => Math.Clamp(8 + complexity / 2 + (selectedModel == "Neural Net" ? 28 : selectedModel == "Random Forest" ? 15 : 4), 12, 98);
-    private int Robustness => Math.Clamp(50 + trainingData / 3 + regularization / 4, 55, 98);
-    private int OverfitRisk => Math.Clamp(complexity / 2 - trainingData / 4 - regularization / 5 + 35, 4, 86);
-    private string ModelInsight => T(
-        $"{selectedModel} currently balances {Accuracy}% accuracy with {Latency} ms inference. Increase regularization if stability matters more than peak fit.",
-        $"{selectedModel} erreicht aktuell {Accuracy}% Genauigkeit bei {Latency} ms Inferenz. Mehr Regularisierung verbessert die Stabilität.");
+    private string selectedRole = "software";
+    private RoleFit SelectedRole => RoleFits.First(r => r.Key == selectedRole);
+    private string[] SelectedEvidence => isGerman ? SelectedRole.EvidenceDe : SelectedRole.EvidenceEn;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -305,6 +312,8 @@
     private void CloseMenu() => menuOpen = false;
     private void OpenCommandPalette() { commandPaletteOpen = true; commandQuery = ""; }
     private void CloseCommandPalette() => commandPaletteOpen = false;
+    private void SelectRole(string key) => selectedRole = key;
+    private void ApplySelectedRoleFilter() => activeFilter = SelectedRole.ProjectFilter;
 
     private async Task ToggleTheme()
     {
@@ -325,7 +334,7 @@
 
     private static readonly (string Id, string En, string De)[] NavItems =
     [
-        ("about", "About", "Über mich"), ("work", "Work", "Projekte"), ("lab", "Lab", "Labor"),
+        ("about", "About", "Über mich"), ("work", "Work", "Projekte"), ("lab", "Fit", "Fit"),
         ("experience", "Experience", "Erfahrung"), ("education", "Education", "Ausbildung"), ("contact", "Contact", "Kontakt")
     ];
 
@@ -382,12 +391,44 @@
         "Airbus Supply Chain Specialist", "IBM Data Science Professional", "Google Data Analytics", "Data Science Bootcamp 2026"
     ];
 
-    private static readonly string[] Models = ["XGBoost", "Random Forest", "Neural Net"];
+    private static readonly RoleFit[] RoleFits =
+    [
+        new("software", "{ }", "Software Developer", "Softwareentwickler", "C# / .NET / Blazor", "C# / .NET / Blazor", 94, "Production software with data fluency.", "Produktionsnahe Software mit Datenkompetenz.",
+            "I can move from requirement to UI, API, data model, and deployment without losing the business reason behind the build.",
+            "Ich kann Anforderungen in UI, API, Datenmodell und Deployment übersetzen, ohne den geschäftlichen Nutzen aus dem Blick zu verlieren.",
+            ["1+ year building C#/.NET enterprise systems for a US cybersecurity startup.", "This portfolio itself is a deployed Blazor WebAssembly product.", "Comfortable across UI, REST APIs, SQL data models, Git, Azure, and delivery workflows."],
+            ["Über 1 Jahr Erfahrung mit C#/.NET-Enterprise-Systemen für ein US-Cybersecurity-Startup.", "Dieses Portfolio ist selbst ein deploytes Blazor-WebAssembly-Produkt.", "Sicher in UI, REST APIs, SQL-Datenmodellen, Git, Azure und Delivery-Workflows."],
+            ["C#", ".NET", "Blazor", "REST APIs", "SQL", "Azure"], "all"),
+        new("backend", "API", "Backend Developer", "Backendentwickler", "APIs / Data / Reliability", "APIs / Daten / Stabilität", 91, "Backend logic that stays maintainable.", "Backend-Logik, die wartbar bleibt.",
+            "My strongest backend value is connecting domain logic, clean APIs, databases, and operational constraints into systems other people can actually extend.",
+            "Mein stärkster Backend-Wert liegt darin, Domänenlogik, saubere APIs, Datenbanken und Betriebsanforderungen zu wartbaren Systemen zu verbinden.",
+            ["Built enterprise application features around access control, evidence workflows, and compliance data.", "Worked with relational and document databases including MySQL, PostgreSQL, and MongoDB.", "Designed project workflows where reliability and explainability mattered more than flashy demos."],
+            ["Enterprise-Features rund um Zugriffskontrolle, Evidence-Workflows und Compliance-Daten gebaut.", "Mit relationalen und dokumentenbasierten Datenbanken wie MySQL, PostgreSQL und MongoDB gearbeitet.", "Projekt-Workflows entwickelt, bei denen Stabilität und Erklärbarkeit wichtiger waren als Showeffekte."],
+            ["C#", ".NET", "REST", "MySQL", "PostgreSQL", "Git"], "all"),
+        new("data", "SQL", "Data Engineer / Analyst", "Data Engineer / Analyst", "Pipelines / Forecasting / Dashboards", "Pipelines / Forecasting / Dashboards", 92, "Data work that ends in decisions.", "Datenarbeit, die Entscheidungen verbessert.",
+            "I connect messy data, forecasting, optimization, and dashboards so stakeholders can see what is happening and act on it.",
+            "Ich verbinde heterogene Daten, Forecasting, Optimierung und Dashboards, damit Stakeholder Entwicklungen erkennen und handeln können.",
+            ["Built an analytics pipeline over 100,000+ e-commerce transactions.", "Created forecasting, inventory optimization, delivery analytics, and seller-risk views.", "Experience across Python, SQL, Plotly Dash, Pandas, and data storytelling."],
+            ["Analytics-Pipeline über mehr als 100.000 E-Commerce-Transaktionen gebaut.", "Forecasting, Bestandsoptimierung, Lieferanalysen und Seller-Risk-Views erstellt.", "Erfahrung mit Python, SQL, Plotly Dash, Pandas und Data Storytelling."],
+            ["Python", "SQL", "Pandas", "Dash", "Forecasting", "Analytics"], "Data Engineering"),
+        new("ml", "ML", "Machine Learning Engineer", "Machine-Learning-Engineer", "XGBoost / Time Series / Explainability", "XGBoost / Zeitreihen / Erklärbarkeit", 90, "Models with engineering discipline.", "Modelle mit Engineering-Disziplin.",
+            "I care about accuracy, but also the surrounding features, evaluation logic, user value, and deployment path that make ML useful.",
+            "Mir geht es nicht nur um Genauigkeit, sondern auch um Features, Evaluation, Nutzerwert und den Deployment-Pfad, der ML nützlich macht.",
+            ["Published IEEE work on windmill pitch prediction with 96% prediction accuracy.", "Reduced modeled error from 8.6% to 2.3% and increased power output by 21%.", "Built classification and explainability workflows for employee attrition analysis."],
+            ["IEEE-Arbeit zur Windkraft-Pitch-Vorhersage mit 96% Vorhersagegenauigkeit veröffentlicht.", "Modellierten Fehler von 8,6% auf 2,3% reduziert und Leistung um 21% erhöht.", "Klassifikations- und Explainability-Workflows für Employee Attrition gebaut."],
+            ["Python", "XGBoost", "Scikit-learn", "Time Series", "EDA", "Explainability"], "Machine Learning"),
+        new("research", "IEEE", "Research-oriented Developer", "Forschungsorientierter Entwickler", "Applied AI / Web3 / Systems", "Applied AI / Web3 / Systeme", 88, "Research that ships as systems.", "Forschung, die als System funktioniert.",
+            "My research work is practical: it turns algorithms, smart contracts, and applied AI into demonstrable systems with measurable claims.",
+            "Meine Forschung ist praktisch: Algorithmen, Smart Contracts und Applied AI werden zu demonstrierbaren Systemen mit messbaren Ergebnissen.",
+            ["2 IEEE publications across applied ML and decentralized finance.", "Built DeFi farmer platform concepts using Ethereum, Solidity, Web3.py, and Ganache.", "Can explain technical trade-offs clearly to both engineering and non-engineering audiences."],
+            ["2 IEEE-Veröffentlichungen in Applied ML und Decentralized Finance.", "DeFi-Farmer-Plattform mit Ethereum, Solidity, Web3.py und Ganache konzipiert.", "Kann technische Trade-offs für technische und nicht-technische Zielgruppen klar erklären."],
+            ["IEEE", "Applied ML", "Solidity", "Web3.py", "Python", "Communication"], "Research")
+    ];
 
     private static readonly Command[] Commands =
     [
         new("⌁", "Selected work", "Ausgewählte Projekte", "#work", "Research and production projects"),
-        new("◈", "Interactive ML lab", "Interaktives ML-Labor", "#lab", "Tune a model simulation"),
+        new("◈", "Role fit scanner", "Rollen-Fit-Scanner", "#lab", "Match evidence to an open role"),
         new("◎", "Experience", "Erfahrung", "#experience", "Roles and technical toolkit"),
         new("↗", "Send an email", "E-Mail senden", "mailto:Rohitsuryaas21@gmail.com", "Start a conversation"),
         new("⌘", "GitHub profile", "GitHub-Profil", "https://github.com/srohitsuryaa21", "Browse source code")
@@ -395,5 +436,6 @@
 
     private sealed record Principle(string Number, string En, string De, string BodyEn, string BodyDe);
     private sealed record SkillSet(string Label, string[] Tags);
+    private sealed record RoleFit(string Key, string Icon, string TitleEn, string TitleDe, string SignalEn, string SignalDe, int FitScore, string HeadlineEn, string HeadlineDe, string BodyEn, string BodyDe, string[] EvidenceEn, string[] EvidenceDe, string[] Stack, string ProjectFilter);
     private sealed record Command(string Icon, string En, string De, string Url, string Hint);
 }
