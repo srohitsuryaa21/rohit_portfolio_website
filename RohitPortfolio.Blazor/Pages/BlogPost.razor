@@ -1,0 +1,63 @@
+@page "/blog/{Slug}"
+@inject BlogApiClient BlogApi
+@inject NavigationManager Navigation
+
+@if (post is null && !isLoading)
+{
+    <PageTitle>Post not found — Rohit Suryaa</PageTitle>
+    <main class="blog-page">
+        <BlogHeader />
+        <section class="blog-empty">
+            <h1>Post not found.</h1>
+            <p>This note may be unpublished or the URL may have changed.</p>
+            <a class="text-link" href="/blog">Back to blog</a>
+        </section>
+    </main>
+}
+else
+{
+    <PageTitle>@(post?.SeoTitle ?? "Technical Blog") — Rohit Suryaa</PageTitle>
+    <main class="blog-page">
+        <BlogHeader />
+
+        @if (isLoading)
+        {
+            <article class="blog-article skeleton"></article>
+        }
+        else if (post is not null)
+        {
+            <article class="blog-article">
+                <a class="text-link" href="/blog">← Back to all notes</a>
+                <header>
+                    <div class="blog-card-meta">
+                        <time datetime="@post.PublishedAt.ToString("O")">@post.PublishedAt.ToString("MMMM dd, yyyy")</time>
+                        <span>@post.ReadingMinutes min read</span>
+                    </div>
+                    <h1>@post.Title</h1>
+                    <p>@post.Summary</p>
+                    <div class="blog-tags">
+                        @foreach (var tag in post.Tags)
+                        {
+                            <span>@tag</span>
+                        }
+                    </div>
+                </header>
+                <div class="blog-content">@((MarkupString)post.ContentHtml)</div>
+            </article>
+        }
+    </main>
+}
+
+@code {
+    [Parameter] public string Slug { get; set; } = "";
+
+    private BlogPostDetailDto? post;
+    private bool isLoading = true;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        isLoading = true;
+        post = await BlogApi.GetPostAsync(Slug);
+        isLoading = false;
+    }
+}

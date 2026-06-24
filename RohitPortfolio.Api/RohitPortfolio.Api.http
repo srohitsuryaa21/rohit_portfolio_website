@@ -1,0 +1,6 @@
+@RohitPortfolio.Api_HostAddress = http://localhost:5031
+
+GET {{RohitPortfolio.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

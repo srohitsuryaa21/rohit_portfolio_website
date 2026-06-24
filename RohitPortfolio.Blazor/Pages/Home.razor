@@ -16,6 +16,7 @@
         {
             <li><a href="#@item.Id" data-nav="@item.Id" @onclick="CloseMenu">@T(item.En, item.De)</a></li>
         }
+        <li><a href="/blog" @onclick="CloseMenu">@T("Blog", "Blog")</a></li>
     </ul>
     <div class="nav-actions">
         <button class="icon-button command-trigger" @onclick="OpenCommandPalette" aria-label="Open command menu">
@@ -429,6 +430,7 @@
     [
         new("⌁", "Selected work", "Ausgewählte Projekte", "#work", "Research and production projects"),
         new("◈", "Role fit scanner", "Rollen-Fit-Scanner", "#lab", "Match evidence to an open role"),
+        new("✎", "Technical blog", "Technischer Blog", "/blog", "Build logs and engineering notes"),
         new("◎", "Experience", "Erfahrung", "#experience", "Roles and technical toolkit"),
         new("↗", "Send an email", "E-Mail senden", "mailto:Rohitsuryaas21@gmail.com", "Start a conversation"),
         new("⌘", "GitHub profile", "GitHub-Profil", "https://github.com/srohitsuryaa21", "Browse source code")

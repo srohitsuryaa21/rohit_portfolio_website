@@ -1,3 +1,5 @@
 <Solution>
+  <Project Path="RohitPortfolio.Api/RohitPortfolio.Api.csproj" />
   <Project Path="RohitPortfolio.Blazor/RohitPortfolio.Blazor.csproj" />
+  <Project Path="RohitPortfolio.Shared/RohitPortfolio.Shared.csproj" />
 </Solution>

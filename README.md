@@ -49,6 +49,10 @@ The original static website was replaced with a production-ready Blazor WebAssem
 - C#
 - Blazor WebAssembly
 - .NET 9
+- ASP.NET Core Minimal APIs
+- EF Core
+- PostgreSQL via Npgsql
+- Markdig Markdown rendering
 - JavaScript interop
 - HTML/CSS
 - GitHub Actions
@@ -64,7 +68,9 @@ The original static website was replaced with a production-ready Blazor WebAssem
 - Animated reveal effects with reduced-motion support
 - Interactive command palette with `Ctrl/Cmd + K`
 - Filterable project case studies
-- Interactive ML trade-off simulator built in Blazor
+- Interactive role-fit scanner built in Blazor
+- Technical blog routes with fallback content
+- Backend-ready blog API with PostgreSQL persistence
 - Animated metric counters and visual data panels
 - Pointer glow, magnetic buttons, and tilt-card interactions
 - Contact section focused on real target roles
@@ -97,9 +103,13 @@ The site avoids locking the profile into only one path and instead presents Rohi
 │       └── deploy.yml
 ├── RohitPortfolio.Blazor/
 │   ├── Pages/
+│   │   ├── Blog.razor
+│   │   ├── BlogPost.razor
 │   │   ├── Home.razor
 │   │   ├── ProjectCard.razor
 │   │   └── SectionHeading.razor
+│   ├── Services/
+│   │   └── BlogApiClient.cs
 │   ├── wwwroot/
 │   │   ├── css/
 │   │   │   └── app.css
@@ -111,6 +121,19 @@ The site avoids locking the profile into only one path and instead presents Rohi
 │   │   └── index.html
 │   ├── PortfolioProject.cs
 │   └── RohitPortfolio.Blazor.csproj
+├── RohitPortfolio.Api/
+│   ├── Data/
+│   │   ├── BlogDbContext.cs
+│   │   └── Migrations/
+│   ├── Models/
+│   │   └── BlogPost.cs
+│   ├── Services/
+│   │   ├── MarkdownService.cs
+│   │   └── SlugService.cs
+│   └── Program.cs
+├── RohitPortfolio.Shared/
+│   └── BlogDtos.cs
+├── BLOG_BACKEND.md
 ├── CNAME
 ├── RohitPortfolio.Blazor.slnx
 └── README.md
@@ -119,7 +142,19 @@ The site avoids locking the profile into only one path and instead presents Rohi
 ## Key files
 
 - `RohitPortfolio.Blazor/Pages/Home.razor`  
-  Main portfolio content, bilingual state, project data, ML simulator, theme state, command palette, and contact logic.
+  Main portfolio content, bilingual state, project data, role-fit scanner, theme state, command palette, and contact logic.
+
+- `RohitPortfolio.Blazor/Pages/Blog.razor` and `BlogPost.razor`  
+  Technical blog listing and detail routes. These use fallback content until a hosted API URL is configured.
+
+- `RohitPortfolio.Api/Program.cs`  
+  ASP.NET Core Minimal API backend for public blog reads and admin-protected writes.
+
+- `RohitPortfolio.Api/Data/BlogDbContext.cs`  
+  EF Core PostgreSQL schema for published/draft posts, tags, SEO fields, and related project metadata.
+
+- `BLOG_BACKEND.md`  
+  Backend setup, migration, API, PostgreSQL, and deployment notes.
 
 - `RohitPortfolio.Blazor/Pages/ProjectCard.razor`  
   Reusable project case-study card with challenge, approach, outcome, links, and project visuals.

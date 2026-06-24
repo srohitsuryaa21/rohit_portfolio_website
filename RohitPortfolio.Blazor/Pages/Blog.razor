@@ -1,0 +1,72 @@
+@page "/blog"
+@inject BlogApiClient BlogApi
+
+<PageTitle>Technical Blog — Rohit Suryaa Saravanan</PageTitle>
+
+<main class="blog-page">
+    <BlogHeader />
+
+    <section class="blog-hero">
+        <div>
+            <span class="section-label">Technical notes</span>
+            <h1>Build logs, backend notes, and applied data systems.</h1>
+            <p>
+                Short, practical writeups on projects, architecture decisions, C#/.NET, data engineering,
+                machine learning, and the trade-offs behind what I build.
+            </p>
+        </div>
+        <aside>
+            <strong>@posts.Count</strong>
+            <span>published notes</span>
+        </aside>
+    </section>
+
+    @if (isLoading)
+    {
+        <section class="blog-grid">
+            <article class="blog-card skeleton"></article>
+            <article class="blog-card skeleton"></article>
+        </section>
+    }
+    else if (posts.Count == 0)
+    {
+        <section class="blog-empty">
+            <h2>No posts published yet.</h2>
+            <p>The backend is ready; publish the first post through the API when the database is deployed.</p>
+        </section>
+    }
+    else
+    {
+        <section class="blog-grid">
+            @foreach (var post in posts)
+            {
+                <article class="blog-card">
+                    <div class="blog-card-meta">
+                        <time datetime="@post.PublishedAt.ToString("O")">@post.PublishedAt.ToString("MMM dd, yyyy")</time>
+                        <span>@post.ReadingMinutes min read</span>
+                    </div>
+                    <h2><a href="/blog/@post.Slug">@post.Title</a></h2>
+                    <p>@post.Summary</p>
+                    <div class="blog-tags">
+                        @foreach (var tag in post.Tags)
+                        {
+                            <span>@tag</span>
+                        }
+                    </div>
+                </article>
+            }
+        </section>
+    }
+</main>
+
+@code {
+    private List<BlogPostSummaryDto> posts = [];
+    private bool isLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await BlogApi.GetPostsAsync();
+        posts = response.Items.ToList();
+        isLoading = false;
+    }
+}
