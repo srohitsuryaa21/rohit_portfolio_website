@@ -149,7 +149,46 @@ h1 { max-width: 850px; font-size: clamp(3.4rem, 6.3vw, 7.2rem); font-weight: 600
 .filter-tabs { display: flex; gap: .3rem; flex-wrap: wrap; }
 .filter-tabs button { padding: .6rem .8rem; border: 1px solid var(--line); border-radius: 30px; background: transparent; color: var(--ink-2); cursor: pointer; font: .65rem var(--mono); text-transform: uppercase; }
 .filter-tabs button.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-.project-list { display: grid; gap: 1.2rem; }
+.project-stack-shell { position: relative; }
+.project-stack-topline { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
+.project-stack-topline span { display: block; color: var(--muted); font: .62rem var(--mono); text-transform: uppercase; letter-spacing: .08em; }
+.project-stack-topline strong { display: block; max-width: min(720px,70vw); margin-top: .2rem; font-size: clamp(1.35rem,2vw,1.9rem); font-weight: 500; letter-spacing: -.04em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.project-stack-controls { display: flex; align-items: center; gap: .55rem; }
+.project-stack-controls span { min-width: 52px; text-align: center; color: var(--muted); font: .66rem var(--mono); }
+.project-stack-controls button {
+    width: 46px; height: 46px; border: 1px solid var(--line); border-radius: 50%; background: var(--bg);
+    color: var(--ink); cursor: pointer; display: grid; place-items: center; font-size: 1.6rem; line-height: 1; transition: .2s;
+}
+.project-stack-controls button:hover { transform: translateY(-2px); border-color: var(--ink); box-shadow: 0 10px 24px rgba(0,0,0,.08); }
+.project-stack {
+    --card-width: min(100%, 980px);
+    --drag: 0;
+    position: relative; min-height: 560px; display: grid; place-items: center; overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--line) 75%, transparent); border-radius: 18px;
+    background: radial-gradient(circle at 50% 18%, color-mix(in srgb, var(--lime) 8%, transparent), transparent 34%);
+    perspective: 1500px; cursor: grab; touch-action: pan-y; user-select: none;
+}
+.project-stack.dragging { cursor: grabbing; }
+.project-stack-card {
+    position: absolute; width: var(--card-width); max-width: calc(100% - 3rem);
+    transform:
+        translateX(calc((var(--offset) * 150px) + (var(--drag) * -42px)))
+        translateY(calc(var(--distance) * 18px))
+        translateZ(calc(var(--distance) * -120px))
+        scale(calc(1 - (var(--distance) * .075)))
+        rotateY(calc(var(--offset) * -7deg));
+    opacity: calc(1 - (var(--distance) * .16)); filter: saturate(calc(1 - (var(--distance) * .12)));
+    pointer-events: none; transition: transform .42s cubic-bezier(.2,.78,.2,1), opacity .3s ease, filter .3s ease;
+}
+.project-stack-card.active { pointer-events: auto; }
+.project-stack-card.is-left { transform-origin: right center; }
+.project-stack-card.is-right { transform-origin: left center; }
+.project-stack-card.is-hidden { opacity: 0; pointer-events: none; }
+.project-stack-card.active .project-card { box-shadow: var(--shadow); }
+.project-stack-card:not(.active) .project-card { box-shadow: 0 18px 60px rgba(0,0,0,.12); }
+.project-stack-dots { display: flex; justify-content: center; gap: .45rem; margin-top: 1rem; }
+.project-stack-dots button { width: 9px; height: 9px; border: 0; border-radius: 50%; background: var(--line); cursor: pointer; transition: .2s; }
+.project-stack-dots button.active { width: 28px; border-radius: 999px; background: var(--ink); }
 .project-card { display: grid; grid-template-columns: minmax(270px,.8fr) 1.2fr; min-height: 430px; overflow: hidden; border: 1px solid var(--line); border-radius: 12px; background: var(--bg); transition: transform .35s, box-shadow .35s; transform-style: preserve-3d; }
 .project-card:hover { box-shadow: var(--shadow); }
 .project-visual { position: relative; overflow: hidden; min-height: 360px; display: grid; place-content: center; color: #111; isolation: isolate; }
@@ -373,6 +412,7 @@ footer a { color: #edf2eb; }
     .hero-sub { margin-left: auto; margin-right: auto; }
     .scroll-cue { display: none; }
     .about-layout, .experience-grid { grid-template-columns: 1fr; }
+    .project-stack { --card-width: min(100%, 860px); min-height: 620px; }
     .project-card { grid-template-columns: .75fr 1.25fr; }
 }
 
@@ -386,6 +426,14 @@ footer a { color: #edf2eb; }
     .nav-links a { padding: .8rem 1rem; }
     .section-shell { padding-top: 7rem; padding-bottom: 7rem; }
     .section-intro { align-items: start; flex-direction: column; margin-bottom: 3rem; }
+    .project-stack-topline { align-items: flex-start; }
+    .project-stack { --card-width: min(100%, 680px); min-height: 760px; margin-inline: calc(clamp(1.4rem,5vw,5rem) * -1); border-radius: 0; border-inline: 0; }
+    .project-stack-card { max-width: calc(100% - 2rem); transform:
+        translateX(calc((var(--offset) * 72px) + (var(--drag) * -32px)))
+        translateY(calc(var(--distance) * 16px))
+        translateZ(calc(var(--distance) * -90px))
+        scale(calc(1 - (var(--distance) * .06)))
+        rotateY(calc(var(--offset) * -5deg)); }
     .project-card { grid-template-columns: 1fr; }
     .project-visual { min-height: 300px; }
     .case-study-grid { grid-template-columns: 1fr; }
@@ -414,6 +462,16 @@ footer a { color: #edf2eb; }
     .hero-meta { display: grid; grid-template-columns: repeat(3,1fr); gap: .5rem; }
     .hero-meta span { font-size: .55rem; }
     .hero-nudge { font-size: .58rem; }
+    .project-stack-topline { flex-direction: column; }
+    .project-stack-topline strong { max-width: 100%; white-space: normal; }
+    .project-stack-controls { width: 100%; justify-content: space-between; }
+    .project-stack { min-height: 820px; }
+    .project-stack-card { max-width: calc(100% - 1rem); transform:
+        translateX(calc((var(--offset) * 38px) + (var(--drag) * -24px)))
+        translateY(calc(var(--distance) * 14px))
+        translateZ(calc(var(--distance) * -70px))
+        scale(calc(1 - (var(--distance) * .055)))
+        rotateY(calc(var(--offset) * -4deg)); }
     .education-timeline article { grid-template-columns: 1fr auto; }
     .education-timeline time { grid-column: 1 / -1; }
     .tool-group { grid-template-columns: 1fr; }

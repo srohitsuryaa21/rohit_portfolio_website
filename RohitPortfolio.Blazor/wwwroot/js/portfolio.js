@@ -93,6 +93,11 @@ window.portfolio = {
                 event.preventDefault();
                 document.querySelector(".command-trigger")?.click();
             }
+            if (document.activeElement?.matches("[data-project-stack]") && (event.key === "ArrowLeft" || event.key === "ArrowRight")) {
+                event.preventDefault();
+                const controls = document.querySelectorAll(".project-stack-controls button");
+                controls[event.key === "ArrowRight" ? 1 : 0]?.click();
+            }
             if (event.key === "Escape") {
                 document.querySelector(".modal-close")?.click();
             }

@@ -126,15 +126,58 @@
             <div class="filter-tabs" role="group" aria-label="Project filters">
                 @foreach (var filter in ProjectFilters)
                 {
-                    <button class="@(activeFilter == filter.Key ? "active" : "")" @onclick="() => activeFilter = filter.Key">@T(filter.En, filter.De)</button>
+                    <button class="@(activeFilter == filter.Key ? "active" : "")" @onclick="() => SetProjectFilter(filter.Key)">@T(filter.En, filter.De)</button>
                 }
             </div>
         </div>
-        <div class="project-list reveal">
-            @foreach (var project in FilteredProjects)
-            {
-                <ProjectCard Project="project" German="isGerman" @key="project.Number" />
-            }
+        @{
+            var visibleProjects = FilteredProjects.ToArray();
+            var activeProject = visibleProjects.Length == 0 ? null : visibleProjects[Math.Clamp(activeProjectIndex, 0, visibleProjects.Length - 1)];
+        }
+        <div class="project-stack-shell reveal">
+            <div class="project-stack-topline">
+                <div>
+                    <span>@T("Drag the project stack", "Projektstapel ziehen")</span>
+                    <strong>@(activeProject?.TitleEn ?? T("No project", "Kein Projekt"))</strong>
+                </div>
+                <div class="project-stack-controls" aria-label="Project browser controls">
+                    <button type="button" @onclick="() => MoveProject(-1)" aria-label="Previous project">‹</button>
+                    <span>@(visibleProjects.Length == 0 ? "0/0" : $"{activeProjectIndex + 1}/{visibleProjects.Length}")</span>
+                    <button type="button" @onclick="() => MoveProject(1)" aria-label="Next project">›</button>
+                </div>
+            </div>
+            <div class="project-stack @(isProjectDragging ? "dragging" : "")"
+                 data-project-stack
+                 tabindex="0"
+                 aria-label="Draggable project stack"
+                 @onpointerdown="StartProjectDrag"
+                 @onpointermove="MoveProjectDrag"
+                 @onpointerup="EndProjectDrag"
+                 @onpointerleave="CancelProjectDrag"
+                 style="--drag:@projectDragOffset">
+                @foreach (var item in visibleProjects.Select((Project, Index) => new { Project, Index }))
+                {
+                    var offset = GetProjectOffset(item.Index, visibleProjects.Length);
+                    var distance = Math.Abs(offset);
+                    var cardState = offset == 0 ? "active" : offset < 0 ? "is-left" : "is-right";
+                    var hiddenState = distance > 2 ? "is-hidden" : "";
+                    <div class="project-stack-card @cardState @hiddenState"
+                         style="--offset:@offset; --distance:@distance; z-index:@(80 - distance);"
+                         @onclick="() => SetActiveProject(item.Index)"
+                         @key="item.Project.Number">
+                        <ProjectCard Project="item.Project" German="isGerman" />
+                    </div>
+                }
+            </div>
+            <div class="project-stack-dots" aria-label="Project stack position">
+                @foreach (var item in visibleProjects.Select((Project, Index) => new { Project, Index }))
+                {
+                    <button type="button"
+                            class="@(item.Index == activeProjectIndex ? "active" : "")"
+                            @onclick="() => SetActiveProject(item.Index)"
+                            aria-label="@($"Open project {item.Index + 1}")"></button>
+                }
+            </div>
         </div>
     </section>
 
@@ -293,9 +336,13 @@
     private bool menuOpen;
     private bool commandPaletteOpen;
     private bool emailCopied;
+    private bool isProjectDragging;
     private string commandQuery = "";
     private string activeFilter = "all";
     private string selectedRole = "software";
+    private int activeProjectIndex;
+    private double projectDragStartX;
+    private double projectDragOffset;
     private RoleFit SelectedRole => RoleFits.First(r => r.Key == selectedRole);
     private string[] SelectedEvidence => isGerman ? SelectedRole.EvidenceDe : SelectedRole.EvidenceEn;
 
@@ -314,7 +361,74 @@
     private void OpenCommandPalette() { commandPaletteOpen = true; commandQuery = ""; }
     private void CloseCommandPalette() => commandPaletteOpen = false;
     private void SelectRole(string key) => selectedRole = key;
-    private void ApplySelectedRoleFilter() => activeFilter = SelectedRole.ProjectFilter;
+    private void ApplySelectedRoleFilter()
+    {
+        activeFilter = SelectedRole.ProjectFilter;
+        activeProjectIndex = 0;
+        projectDragOffset = 0;
+        isProjectDragging = false;
+    }
+    private async Task SetProjectFilter(string key)
+    {
+        activeFilter = key;
+        activeProjectIndex = 0;
+        isProjectDragging = false;
+        projectDragOffset = 0;
+        await Task.CompletedTask;
+    }
+
+    private void MoveProject(int direction)
+    {
+        var count = FilteredProjects.Count();
+        if (count == 0) return;
+        activeProjectIndex = (activeProjectIndex + direction + count) % count;
+        projectDragOffset = 0;
+    }
+
+    private void SetActiveProject(int index)
+    {
+        activeProjectIndex = index;
+        projectDragOffset = 0;
+    }
+
+    private int GetProjectOffset(int index, int count)
+    {
+        if (count == 0) return 0;
+        var offset = index - activeProjectIndex;
+        if (offset > count / 2) offset -= count;
+        if (offset < -count / 2) offset += count;
+        return Math.Clamp(offset, -3, 3);
+    }
+
+    private void StartProjectDrag(PointerEventArgs e)
+    {
+        isProjectDragging = true;
+        projectDragStartX = e.ClientX;
+        projectDragOffset = 0;
+    }
+
+    private void MoveProjectDrag(PointerEventArgs e)
+    {
+        if (!isProjectDragging) return;
+        projectDragOffset = Math.Clamp((e.ClientX - projectDragStartX) / 180, -1, 1);
+    }
+
+    private void EndProjectDrag(PointerEventArgs e)
+    {
+        if (!isProjectDragging) return;
+        var delta = e.ClientX - projectDragStartX;
+        isProjectDragging = false;
+        projectDragOffset = 0;
+
+        if (Math.Abs(delta) < 55) return;
+        MoveProject(delta < 0 ? 1 : -1);
+    }
+
+    private void CancelProjectDrag()
+    {
+        isProjectDragging = false;
+        projectDragOffset = 0;
+    }
 
     private async Task ToggleTheme()
     {
@@ -381,7 +495,7 @@
             "A PRINOTH-style vehicle-control prototype with operator inputs, HMI status, safety-state logic, and CAN-style message simulation.",
             "Ein PRINOTH-orientierter Fahrzeugsteuerungs-Prototyp mit Bedienereingaben, HMI-Status, Safety-State-Logic und CAN-ähnlicher Nachrichtensimulation.",
             ["ESP32", "C/C++", "State Machine", "HMI", "CAN Simulation"],
-            null, null,
+            "https://github.com/srohitsuryaa21/embedded-vehicle-control", null,
             "6", "SAFETY STATES", "Vehicle-control roles require evidence of input handling, safety behavior, display logic, and validation beyond normal software demos.", "Built a deterministic controller model, browser HMI, CAN-style logs, validation tests, and ESP32-oriented firmware scaffold.", "Demonstrates embedded control thinking through a working model, requirements, state-machine documentation, and testable safety scenarios.", "visual-vehicle")
     ];
 
@@ -429,7 +543,13 @@
             "Meine Forschung ist praktisch: Algorithmen, Smart Contracts und Applied AI werden zu demonstrierbaren Systemen mit messbaren Ergebnissen.",
             ["2 IEEE publications across applied ML and decentralized finance.", "Built DeFi farmer platform concepts using Ethereum, Solidity, Web3.py, and Ganache.", "Can explain technical trade-offs clearly to both engineering and non-engineering audiences."],
             ["2 IEEE-Veröffentlichungen in Applied ML und Decentralized Finance.", "DeFi-Farmer-Plattform mit Ethereum, Solidity, Web3.py und Ganache konzipiert.", "Kann technische Trade-offs für technische und nicht-technische Zielgruppen klar erklären."],
-            ["IEEE", "Applied ML", "Solidity", "Web3.py", "Python", "Communication"], "Research")
+            ["IEEE", "Applied ML", "Solidity", "Web3.py", "Python", "Communication"], "Research"),
+        new("embedded", "VCU", "Embedded Systems Developer", "Embedded-Systems-Entwickler", "C/C++ / HMI / Safety Logic", "C/C++ / HMI / Safety-Logik", 87, "Control logic with validation discipline.", "Steuerungslogik mit Validierungsdisziplin.",
+            "The new vehicle-control demonstrator shows how I think about operator inputs, safety states, HMI feedback, communication messages, and test evidence for vehicle systems.",
+            "Der neue Fahrzeugsteuerungs-Demonstrator zeigt Bedienereingaben, Safety States, HMI-Feedback, Kommunikationsnachrichten und Testnachweise für Fahrzeugsysteme.",
+            ["Built a PRINOTH-style vehicle-control concept around drive, implement, fault, and emergency-stop states.", "Modeled HMI status, CAN-style messages, startup self-check, reset handling, and validation scenarios.", "Bridges my software background with embedded C/C++, microcontroller logic, and vehicle-system integration."],
+            ["PRINOTH-orientiertes Fahrzeugsteuerungskonzept mit Drive, Implement, Fault und Emergency Stop States.", "HMI-Status, CAN-ähnliche Nachrichten, Startup-Self-Check, Reset-Handling und Validierungsszenarien modelliert.", "Verbindet Softwareerfahrung mit Embedded C/C++, Mikrocontrollerlogik und Fahrzeugsystemintegration."],
+            ["C/C++", "ESP32", "State Machines", "HMI", "CAN Simulation", "Validation"], "Embedded Systems")
     ];
 
     private static readonly Command[] Commands =
