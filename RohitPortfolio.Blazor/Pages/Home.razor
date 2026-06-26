@@ -341,7 +341,7 @@
 
     private static readonly (string Key, string En, string De)[] ProjectFilters =
     [
-        ("all", "All work", "Alle"), ("Research", "Research", "Forschung"), ("Machine Learning", "Machine learning", "Machine Learning"), ("Data Engineering", "Data engineering", "Data Engineering")
+        ("all", "All work", "Alle"), ("Embedded Systems", "Embedded systems", "Embedded Systems"), ("Research", "Research", "Forschung"), ("Machine Learning", "Machine learning", "Machine Learning"), ("Data Engineering", "Data engineering", "Data Engineering")
     ];
 
     private static readonly Principle[] Principles =
@@ -376,7 +376,13 @@
             "Ein HR-Entscheidungsmodell, das nicht nur vorhersagt, sondern die Treiber der Mitarbeiterfluktuation erklärt.",
             ["Scikit-learn", "EDA", "Classification", "Explainability"],
             "https://github.com/srohitsuryaa21/employee-attrition-prediction", null,
-            "360°", "WORKFORCE VIEW", "HR teams needed a defensible way to identify retention risks hidden across workforce variables.", "Combined exploratory analysis, feature engineering, model comparison, and interpretable driver analysis.", "Produced actionable retention signals and a repeatable workflow for evaluating workforce risk.", "visual-attrition")
+            "360°", "WORKFORCE VIEW", "HR teams needed a defensible way to identify retention risks hidden across workforce variables.", "Combined exploratory analysis, feature engineering, model comparison, and interpretable driver analysis.", "Produced actionable retention signals and a repeatable workflow for evaluating workforce risk.", "visual-attrition"),
+        new("05", "Embedded Systems", "Embedded Vehicle Control Demonstrator", "Embedded Vehicle Control Demonstrator",
+            "A PRINOTH-style vehicle-control prototype with operator inputs, HMI status, safety-state logic, and CAN-style message simulation.",
+            "Ein PRINOTH-orientierter Fahrzeugsteuerungs-Prototyp mit Bedienereingaben, HMI-Status, Safety-State-Logic und CAN-ähnlicher Nachrichtensimulation.",
+            ["ESP32", "C/C++", "State Machine", "HMI", "CAN Simulation"],
+            null, null,
+            "6", "SAFETY STATES", "Vehicle-control roles require evidence of input handling, safety behavior, display logic, and validation beyond normal software demos.", "Built a deterministic controller model, browser HMI, CAN-style logs, validation tests, and ESP32-oriented firmware scaffold.", "Demonstrates embedded control thinking through a working model, requirements, state-machine documentation, and testable safety scenarios.", "visual-vehicle")
     ];
 
     private static readonly SkillSet[] Skills =

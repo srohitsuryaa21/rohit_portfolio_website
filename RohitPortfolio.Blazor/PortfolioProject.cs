@@ -8,11 +8,12 @@ public sealed record PortfolioProject(
     string DescriptionEn,
     string DescriptionDe,
     string[] Tags,
-    string GitHubUrl,
+    string? GitHubUrl,
     string? PaperUrl,
     string Metric,
     string MetricLabel,
     string Challenge,
     string Approach,
     string Outcome,
-    string VisualClass);
+    string VisualClass,
+    string? DemoUrl = null);

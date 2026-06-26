@@ -25,13 +25,23 @@
                 <div><small>@(German ? "Ergebnis" : "Outcome")</small><p>@Project.Outcome</p></div>
             </div>
         </details>
-        <div class="project-links">
-            @if (!string.IsNullOrWhiteSpace(Project.PaperUrl))
-            {
-                <a class="text-link" target="_blank" rel="noopener" href="@Project.PaperUrl">IEEE paper ↗</a>
-            }
-            <a class="text-link" target="_blank" rel="noopener" href="@Project.GitHubUrl">Source code ↗</a>
-        </div>
+        @if (!string.IsNullOrWhiteSpace(Project.DemoUrl) || !string.IsNullOrWhiteSpace(Project.PaperUrl) || !string.IsNullOrWhiteSpace(Project.GitHubUrl))
+        {
+            <div class="project-links">
+                @if (!string.IsNullOrWhiteSpace(Project.DemoUrl))
+                {
+                    <a class="text-link" target="_blank" rel="noopener" href="@Project.DemoUrl">Working model -></a>
+                }
+                @if (!string.IsNullOrWhiteSpace(Project.PaperUrl))
+                {
+                    <a class="text-link" target="_blank" rel="noopener" href="@Project.PaperUrl">IEEE paper -></a>
+                }
+                @if (!string.IsNullOrWhiteSpace(Project.GitHubUrl))
+                {
+                    <a class="text-link" target="_blank" rel="noopener" href="@Project.GitHubUrl">Source code -></a>
+                }
+            </div>
+        }
     </div>
 </article>
 
