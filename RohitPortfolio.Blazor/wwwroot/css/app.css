@@ -153,6 +153,9 @@ h1 { max-width: 850px; font-size: clamp(3.4rem, 6.3vw, 7.2rem); font-weight: 600
 .project-stack-topline { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
 .project-stack-topline span { display: block; color: var(--muted); font: .62rem var(--mono); text-transform: uppercase; letter-spacing: .08em; }
 .project-stack-topline strong { display: block; max-width: min(720px,70vw); margin-top: .2rem; font-size: clamp(1.35rem,2vw,1.9rem); font-weight: 500; letter-spacing: -.04em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.project-stack-actions { display: flex; align-items: center; gap: .9rem; flex-wrap: wrap; justify-content: flex-end; }
+.project-stack-link { padding: .68rem .82rem; border: 1px solid var(--line); border-radius: 4px; color: var(--ink); background: var(--bg); font: .64rem var(--mono); text-transform: uppercase; text-decoration: none; transition: .2s; }
+.project-stack-link:hover { transform: translateY(-2px); border-color: var(--ink); box-shadow: 0 10px 24px rgba(0,0,0,.08); }
 .project-stack-controls { display: flex; align-items: center; gap: .55rem; }
 .project-stack-controls span { min-width: 52px; text-align: center; color: var(--muted); font: .66rem var(--mono); }
 .project-stack-controls button {
@@ -464,6 +467,7 @@ footer a { color: #edf2eb; }
     .hero-nudge { font-size: .58rem; }
     .project-stack-topline { flex-direction: column; }
     .project-stack-topline strong { max-width: 100%; white-space: normal; }
+    .project-stack-actions { width: 100%; justify-content: space-between; }
     .project-stack-controls { width: 100%; justify-content: space-between; }
     .project-stack { min-height: 820px; }
     .project-stack-card { max-width: calc(100% - 1rem); transform:

@@ -140,10 +140,16 @@
                     <span>@T("Drag the project stack", "Projektstapel ziehen")</span>
                     <strong>@(activeProject?.TitleEn ?? T("No project", "Kein Projekt"))</strong>
                 </div>
-                <div class="project-stack-controls" aria-label="Project browser controls">
-                    <button type="button" @onclick="() => MoveProject(-1)" aria-label="Previous project">‹</button>
-                    <span>@(visibleProjects.Length == 0 ? "0/0" : $"{activeProjectIndex + 1}/{visibleProjects.Length}")</span>
-                    <button type="button" @onclick="() => MoveProject(1)" aria-label="Next project">›</button>
+                <div class="project-stack-actions">
+                    @if (!string.IsNullOrWhiteSpace(activeProject?.GitHubUrl))
+                    {
+                        <a class="project-stack-link" target="_blank" rel="noopener" href="@activeProject.GitHubUrl">GitHub repo -></a>
+                    }
+                    <div class="project-stack-controls" aria-label="Project browser controls">
+                        <button type="button" @onclick="() => MoveProject(-1)" aria-label="Previous project">‹</button>
+                        <span>@(visibleProjects.Length == 0 ? "0/0" : $"{activeProjectIndex + 1}/{visibleProjects.Length}")</span>
+                        <button type="button" @onclick="() => MoveProject(1)" aria-label="Next project">›</button>
+                    </div>
                 </div>
             </div>
             <div class="project-stack @(isProjectDragging ? "dragging" : "")"
