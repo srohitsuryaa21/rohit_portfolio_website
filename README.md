@@ -69,8 +69,6 @@ The original static website was replaced with a production-ready Blazor WebAssem
 - Interactive command palette with `Ctrl/Cmd + K`
 - Filterable project case studies
 - Interactive role-fit scanner built in Blazor
-- Technical blog routes with fallback content
-- Backend-ready blog API with PostgreSQL persistence
 - Animated metric counters and visual data panels
 - Pointer glow, magnetic buttons, and tilt-card interactions
 - Contact section focused on real target roles
@@ -143,9 +141,6 @@ The site avoids locking the profile into only one path and instead presents Rohi
 
 - `RohitPortfolio.Blazor/Pages/Home.razor`  
   Main portfolio content, bilingual state, project data, role-fit scanner, theme state, command palette, and contact logic.
-
-- `RohitPortfolio.Blazor/Pages/Blog.razor` and `BlogPost.razor`  
-  Technical blog listing and detail routes. These use fallback content until a hosted API URL is configured.
 
 - `RohitPortfolio.Api/Program.cs`  
   ASP.NET Core Minimal API backend for public blog reads and admin-protected writes.

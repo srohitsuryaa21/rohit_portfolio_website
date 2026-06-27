@@ -34,12 +34,6 @@ jobs:
         shell: bash
         run: |
           cp publish/wwwroot/index.html publish/wwwroot/404.html
-          mkdir -p publish/wwwroot/blog
-          mkdir -p publish/wwwroot/blog/why-i-rebuilt-my-portfolio-in-blazor
-          mkdir -p publish/wwwroot/blog/portfolio-backend-i-would-build-first
-          cp publish/wwwroot/index.html publish/wwwroot/blog/index.html
-          cp publish/wwwroot/index.html publish/wwwroot/blog/why-i-rebuilt-my-portfolio-in-blazor/index.html
-          cp publish/wwwroot/index.html publish/wwwroot/blog/portfolio-backend-i-would-build-first/index.html
           touch publish/wwwroot/.nojekyll
           echo "rohitsuryaa.com" > publish/wwwroot/CNAME
 
