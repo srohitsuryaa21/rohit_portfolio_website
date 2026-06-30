@@ -208,6 +208,7 @@ h1 { max-width: 850px; font-size: clamp(3.4rem, 6.3vw, 7.2rem); font-weight: 600
 .visual-defi { background: #8c80ff; }
 .visual-attrition { background: #ff876d; }
 .visual-vehicle { background: #72e2c8; }
+.visual-luxury { background: #d8c468; }
 .project-content { display: flex; flex-direction: column; padding: clamp(1.5rem,4vw,3.2rem); }
 .project-kicker { color: var(--muted); font: .66rem var(--mono); text-transform: uppercase; }
 .project-content h3 { margin: .7rem 0 1rem; font-size: clamp(2rem,3.4vw,3.6rem); font-weight: 500; line-height: 1; }

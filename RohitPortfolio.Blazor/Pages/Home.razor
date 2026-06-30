@@ -52,7 +52,7 @@
             </a>
             <div class="hero-meta">
                 <span><strong>02</strong> IEEE publications</span>
-                <span><strong>04+</strong> production projects</span>
+                <span><strong>06</strong> selected projects</span>
                 <span><strong>DE / EN</strong> communication</span>
             </div>
         </div>
@@ -460,7 +460,7 @@
 
     private static readonly (string Key, string En, string De)[] ProjectFilters =
     [
-        ("all", "All work", "Alle"), ("Embedded Systems", "Embedded systems", "Embedded Systems"), ("Research", "Research", "Forschung"), ("Machine Learning", "Machine learning", "Machine Learning"), ("Data Engineering", "Data engineering", "Data Engineering")
+        ("all", "All work", "Alle"), ("Agentic AI", "Agentic AI", "Agentic AI"), ("Embedded Systems", "Embedded systems", "Embedded Systems"), ("Research", "Research", "Forschung"), ("Machine Learning", "Machine learning", "Machine Learning"), ("Data Engineering", "Data engineering", "Data Engineering")
     ];
 
     private static readonly Principle[] Principles =
@@ -501,12 +501,19 @@
             "Ein PRINOTH-orientierter Fahrzeugsteuerungs-Prototyp mit Bedienereingaben, HMI-Status, Safety-State-Logic und CAN-ähnlicher Nachrichtensimulation.",
             ["ESP32", "C/C++", "State Machine", "HMI", "CAN Simulation"],
             "https://github.com/srohitsuryaa21/embedded-vehicle-control", null,
-            "6", "SAFETY STATES", "Vehicle-control roles require evidence of input handling, safety behavior, display logic, and validation beyond normal software demos.", "Built a deterministic controller model, browser HMI, CAN-style logs, validation tests, and ESP32-oriented firmware scaffold.", "Demonstrates embedded control thinking through a working model, requirements, state-machine documentation, and testable safety scenarios.", "visual-vehicle")
+            "6", "SAFETY STATES", "Vehicle-control roles require evidence of input handling, safety behavior, display logic, and validation beyond normal software demos.", "Built a deterministic controller model, browser HMI, CAN-style logs, validation tests, and ESP32-oriented firmware scaffold.", "Demonstrates embedded control thinking through a working model, requirements, state-machine documentation, and testable safety scenarios.", "visual-vehicle"),
+        new("06", "Agentic AI", "Luxury Concierge Agent", "Luxury Concierge Agent",
+            "An agentic AI concierge for bespoke luxury vehicle configuration, turning client usage, region, cabin mood, budget, and timeline into guided recommendations.",
+            "Ein agentischer KI-Concierge fuer hochwertige Fahrzeugkonfigurationen, der Nutzung, Region, Kabinenstimmung, Budget und Lieferzeit in gefuehrte Empfehlungen uebersetzt.",
+            ["LangGraph", "RAG", "Ollama", "Streamlit", "pytest"],
+            "https://github.com/srohitsuryaa21/luxury-concierge-agent", null,
+            "AI", "LOCAL AGENT", "High-consideration buying journeys need recommendations that combine preference capture, product knowledge, pricing, availability, and clear justification.", "Built a LangGraph multi-step agent with local RAG, mocked business tools, conversation memory, an eval CLI, pytest coverage, and a polished Streamlit UI.", "Shows end-to-end agentic AI delivery for luxury, automotive, retail, and enterprise advisory workflows without requiring paid OpenAI credits.", "visual-luxury")
     ];
 
     private static readonly SkillSet[] Skills =
     [
         new("DATA / ML", ["Python", "Pandas", "Scikit-learn", "XGBoost", "TensorFlow", "Time Series"]),
+        new("AGENTIC AI", ["LangGraph", "RAG", "Ollama", "Streamlit", "ChromaDB", "pytest"]),
         new("ENGINEERING", ["C#", ".NET", "Java", "Spring Boot", "REST APIs", "Blazor"]),
         new("DATA PLATFORMS", ["PostgreSQL", "MySQL", "MongoDB", "Plotly", "Complex SQL"]),
         new("DELIVERY", ["Azure", "Docker", "Jenkins", "CI/CD", "Git", "Agile"])
@@ -554,7 +561,13 @@
             "Der neue Fahrzeugsteuerungs-Demonstrator zeigt Bedienereingaben, Safety States, HMI-Feedback, Kommunikationsnachrichten und Testnachweise für Fahrzeugsysteme.",
             ["Built a PRINOTH-style vehicle-control concept around drive, implement, fault, and emergency-stop states.", "Modeled HMI status, CAN-style messages, startup self-check, reset handling, and validation scenarios.", "Bridges my software background with embedded C/C++, microcontroller logic, and vehicle-system integration."],
             ["PRINOTH-orientiertes Fahrzeugsteuerungskonzept mit Drive, Implement, Fault und Emergency Stop States.", "HMI-Status, CAN-ähnliche Nachrichten, Startup-Self-Check, Reset-Handling und Validierungsszenarien modelliert.", "Verbindet Softwareerfahrung mit Embedded C/C++, Mikrocontrollerlogik und Fahrzeugsystemintegration."],
-            ["C/C++", "ESP32", "State Machines", "HMI", "CAN Simulation", "Validation"], "Embedded Systems")
+            ["C/C++", "ESP32", "State Machines", "HMI", "CAN Simulation", "Validation"], "Embedded Systems"),
+        new("agentic", "AI", "Agentic AI Developer", "Agentic-AI-Entwickler", "LangGraph / RAG / Local LLM", "LangGraph / RAG / lokales LLM", 91, "AI workflows that behave like products.", "KI-Workflows, die wie Produkte funktionieren.",
+            "The Luxury Concierge Agent shows I can connect LLM reasoning, retrieval, tool calls, memory, evaluation, and user experience into a business-ready advisory system.",
+            "Der Luxury Concierge Agent zeigt, dass ich LLM-Reasoning, Retrieval, Tool Calls, Memory, Evaluation und User Experience zu einem geschaeftsnahen Beratungssystem verbinden kann.",
+            ["Built a LangGraph multi-step concierge around client needs, region, cabin mood, budget, and delivery timeline.", "Combined handcrafted product knowledge RAG with mocked pricing, availability, configuration, and options tools.", "Added local Ollama/qwen3.5:9b execution, Streamlit UI, Typer eval CLI, and pytest checks for practical end-to-end quality."],
+            ["LangGraph-Multi-Step-Concierge fuer Kundenbedarf, Region, Kabinenstimmung, Budget und Lieferzeit gebaut.", "Handgefertigtes Produktwissen per RAG mit gemockten Preis-, Verfuegbarkeits-, Konfigurations- und Options-Tools kombiniert.", "Lokale Ausfuehrung mit Ollama/qwen3.5:9b, Streamlit UI, Typer-Eval-CLI und pytest-Checks fuer praktische End-to-End-Qualitaet ergaenzt."],
+            ["Python", "LangGraph", "RAG", "Ollama", "Streamlit", "pytest"], "Agentic AI")
     ];
 
     private static readonly Command[] Commands =
