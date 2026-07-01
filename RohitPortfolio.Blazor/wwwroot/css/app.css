@@ -495,4 +495,43 @@ footer a { color: #edf2eb; }
     .portrait-panel { border-right: 0; border-bottom: 1px solid var(--line); }
     .portrait-frame { max-height: 320px; }
     .floating-chip { display: none; }
-    
+    .hero-meta { display: grid; grid-template-columns: repeat(3,1fr); gap: .5rem; }
+    .hero-meta span { font-size: .55rem; }
+    .hero-nudge { font-size: .58rem; }
+    .project-stack-topline { flex-direction: column; }
+    .project-stack-topline strong { max-width: 100%; white-space: normal; }
+    .project-stack-actions { width: 100%; justify-content: space-between; }
+    .project-stack-controls { width: 100%; justify-content: space-between; }
+    .project-stack { min-height: 820px; }
+    .project-stack-card { max-width: calc(100% - 1rem); transform:
+        translateX(calc((var(--offset) * 38px) + (var(--drag) * -24px)))
+        translateY(calc(var(--distance) * 14px))
+        translateZ(calc(var(--distance) * -70px))
+        scale(calc(1 - (var(--distance) * .055)))
+        rotateY(calc(var(--offset) * -4deg)); }
+    .education-timeline article { grid-template-columns: 1fr auto; }
+    .education-timeline time { grid-column: 1 / -1; }
+    .tool-group { grid-template-columns: 1fr; }
+    .model-selector { grid-template-columns: 1fr; }
+    .metric-ring { --size: 190px; }
+    .fit-orbit { --size: 185px; }
+    .role-options button { transform: none !important; }
+    .contact-actions { flex-direction: column; }
+    .contact-email { width: 100%; gap: .5rem; font-size: .65rem; }
+    .copy-button { width: 100%; }
+    .resume-box { width: 100%; }
+    .resume-toggle { width: 100%; justify-content: center; }
+    .resume-options { width: 100%; }
+    .resume-options a { width: 100%; min-width: 0; align-items: center; text-align: center; }
+    .blog-page { padding-inline: 1rem; }
+    .blog-nav { align-items: flex-start; border-radius: 22px; flex-direction: column; gap: .7rem; }
+    .blog-nav > div { width: 100%; justify-content: space-between; }
+    .blog-nav a:not(.nav-logo) { padding-inline: .45rem; font-size: .58rem; }
+    .blog-article, .blog-empty { padding: 1.2rem; border-radius: 18px; }
+    footer { flex-direction: column; text-align: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    .reveal { opacity: 1; transform: none; }
+}
