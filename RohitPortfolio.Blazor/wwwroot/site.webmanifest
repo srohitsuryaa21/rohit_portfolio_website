@@ -1,0 +1,17 @@
+{
+  "name": "Rohit Suryaa Saravanan — Software Developer & Data Scientist",
+  "short_name": "Rohit Suryaa",
+  "description": "Software Developer and Data Scientist building reliable C#/.NET software and intelligent data systems.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b0c10",
+  "theme_color": "#0b0c10",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

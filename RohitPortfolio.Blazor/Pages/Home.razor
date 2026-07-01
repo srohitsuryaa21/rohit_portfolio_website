@@ -1,7 +1,7 @@
 @page "/"
 @inject IJSRuntime JS
 
-<PageTitle>Rohit Suryaa Saravanan — Data Scientist & Software Engineer</PageTitle>
+<PageTitle>Rohit Suryaa Saravanan — Software Developer & Data Scientist</PageTitle>
 
 <a class="skip-link" href="#main-content">Skip to content</a>
 <div class="scroll-progress" aria-hidden="true"><span></span></div>
@@ -32,6 +32,7 @@
 <main id="main-content">
     <section id="hero" data-section>
         <div class="hero-noise"></div>
+        <canvas class="hero-particles" aria-hidden="true"></canvas>
         <div class="hero-copy reveal">
             <div class="eyebrow"><i></i>@T("Based in Fulda · Open to opportunities", "In Fulda · Offen für Möglichkeiten")</div>
             <h1>
@@ -308,6 +309,25 @@
                 <a target="_blank" rel="noopener" href="https://github.com/srohitsuryaa21">GitHub ↗</a>
                 <a target="_blank" rel="noopener" href="https://www.linkedin.com/in/rohit-suryaa-saravanan-197b33303/">LinkedIn ↗</a>
             </div>
+            <div class="resume-box @(resumeOpen ? "open" : "")">
+                <button type="button" class="resume-toggle" @onclick="ToggleResume" aria-expanded="@resumeOpen" aria-controls="resume-options">
+                    <span>@T("Download my résumé", "Meinen Lebenslauf herunterladen")</span>
+                    <span class="resume-caret" aria-hidden="true">↓</span>
+                </button>
+                @if (resumeOpen)
+                {
+                    <div class="resume-options" id="resume-options">
+                        <a href="/resumes/Rohit-Suryaa-Saravanan-CV-EN.pdf" download>
+                            <span class="resume-lang">English</span>
+                            <span class="resume-meta">PDF · @T("2 pages", "2 Seiten")</span>
+                        </a>
+                        <a href="/resumes/Rohit-Suryaa-Saravanan-CV-DE.pdf" download>
+                            <span class="resume-lang">Deutsch</span>
+                            <span class="resume-meta">PDF · @T("2 pages", "2 Seiten")</span>
+                        </a>
+                    </div>
+                }
+            </div>
         </div>
     </section>
 </main>
@@ -327,7 +347,7 @@
             <div class="command-results">
                 @foreach (var command in FilteredCommands)
                 {
-                    <a href="@command.Url" @onclick="CloseCommandPalette"><span>@command.Icon</span><div><strong>@T(command.En, command.De)</strong><small>@command.Hint</small></div><kbd>↵</kbd></a>
+                    <a href="@command.Url" download="@(command.Url.EndsWith(".pdf") ? "download" : null)" @onclick="CloseCommandPalette"><span>@command.Icon</span><div><strong>@T(command.En, command.De)</strong><small>@command.Hint</small></div><kbd>↵</kbd></a>
                 }
             </div>
             <small class="command-footer">ESC @T("to close", "zum Schließen") · ↑↓ @T("to navigate", "zum Navigieren")</small>
@@ -341,6 +361,7 @@
     private bool menuOpen;
     private bool commandPaletteOpen;
     private bool emailCopied;
+    private bool resumeOpen;
     private bool isProjectDragging;
     private string commandQuery = "";
     private string activeFilter = "all";
@@ -363,6 +384,7 @@
     private void ToggleLanguage() => isGerman = !isGerman;
     private void ToggleMenu() => menuOpen = !menuOpen;
     private void CloseMenu() => menuOpen = false;
+    private void ToggleResume() => resumeOpen = !resumeOpen;
     private void OpenCommandPalette() { commandPaletteOpen = true; commandQuery = ""; }
     private void CloseCommandPalette() => commandPaletteOpen = false;
     private void SelectRole(string key) => selectedRole = key;
@@ -576,7 +598,9 @@
         new("◈", "Role fit scanner", "Rollen-Fit-Scanner", "#lab", "Match evidence to an open role"),
         new("◎", "Experience", "Erfahrung", "#experience", "Roles and technical toolkit"),
         new("↗", "Send an email", "E-Mail senden", "mailto:Rohitsuryaas21@gmail.com", "Start a conversation"),
-        new("⌘", "GitHub profile", "GitHub-Profil", "https://github.com/srohitsuryaa21", "Browse source code")
+        new("⌘", "GitHub profile", "GitHub-Profil", "https://github.com/srohitsuryaa21", "Browse source code"),
+        new("↓", "Résumé — English", "Lebenslauf — Englisch", "/resumes/Rohit-Suryaa-Saravanan-CV-EN.pdf", "Download English PDF"),
+        new("↓", "Résumé — Deutsch", "Lebenslauf — Deutsch", "/resumes/Rohit-Suryaa-Saravanan-CV-DE.pdf", "Download German PDF")
     ];
 
     private sealed record Principle(string Number, string En, string De, string BodyEn, string BodyDe);

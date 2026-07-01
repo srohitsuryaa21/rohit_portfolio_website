@@ -4,6 +4,12 @@
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <!-- Faster cold start: the site uses hardcoded EN/DE strings (no culture-based
+         formatting), so the ~1.5 MB ICU globalization data can be dropped. -->
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <BlazorWebAssemblyLoadAllGlobalizationData>false</BlazorWebAssemblyLoadAllGlobalizationData>
+    <!-- Trim unused IL on publish to shrink the WASM payload. -->
+    <PublishTrimmed>true</PublishTrimmed>
   </PropertyGroup>
 
   <ItemGroup>
