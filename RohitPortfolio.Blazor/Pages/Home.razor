@@ -482,7 +482,7 @@
 
     private static readonly (string Key, string En, string De)[] ProjectFilters =
     [
-        ("all", "All work", "Alle"), ("Agentic AI", "Agentic AI", "Agentic AI"), ("Embedded Systems", "Embedded systems", "Embedded Systems"), ("Research", "Research", "Forschung"), ("Machine Learning", "Machine learning", "Machine Learning"), ("Data Engineering", "Data engineering", "Data Engineering")
+        ("all", "All work", "Alle"), ("Agentic AI", "Agentic AI", "Agentic AI"), ("Fintech", "Fintech", "Fintech"), ("Research", "Research", "Forschung"), ("Machine Learning", "Machine learning", "Machine Learning"), ("Data Engineering", "Data engineering", "Data Engineering")
     ];
 
     private static readonly Principle[] Principles =
@@ -518,18 +518,18 @@
             ["Scikit-learn", "EDA", "Classification", "Explainability"],
             "https://github.com/srohitsuryaa21/employee-attrition-prediction", null,
             "360°", "WORKFORCE VIEW", "HR teams needed a defensible way to identify retention risks hidden across workforce variables.", "Combined exploratory analysis, feature engineering, model comparison, and interpretable driver analysis.", "Produced actionable retention signals and a repeatable workflow for evaluating workforce risk.", "visual-attrition"),
-        new("05", "Embedded Systems", "Embedded Vehicle Control Demonstrator", "Embedded Vehicle Control Demonstrator",
-            "A PRINOTH-style vehicle-control prototype with operator inputs, HMI status, safety-state logic, and CAN-style message simulation.",
-            "Ein PRINOTH-orientierter Fahrzeugsteuerungs-Prototyp mit Bedienereingaben, HMI-Status, Safety-State-Logic und CAN-ähnlicher Nachrichtensimulation.",
-            ["ESP32", "C/C++", "State Machine", "HMI", "CAN Simulation"],
-            "https://github.com/srohitsuryaa21/embedded-vehicle-control", null,
-            "6", "SAFETY STATES", "Vehicle-control roles require evidence of input handling, safety behavior, display logic, and validation beyond normal software demos.", "Built a deterministic controller model, browser HMI, CAN-style logs, validation tests, and ESP32-oriented firmware scaffold.", "Demonstrates embedded control thinking through a working model, requirements, state-machine documentation, and testable safety scenarios.", "visual-vehicle"),
-        new("06", "Agentic AI", "Luxury Concierge Agent", "Luxury Concierge Agent",
+        new("05", "Agentic AI", "Luxury Concierge Agent", "Luxury Concierge Agent",
             "An agentic AI concierge for bespoke luxury vehicle configuration, turning client usage, region, cabin mood, budget, and timeline into guided recommendations.",
             "Ein agentischer KI-Concierge fuer hochwertige Fahrzeugkonfigurationen, der Nutzung, Region, Kabinenstimmung, Budget und Lieferzeit in gefuehrte Empfehlungen uebersetzt.",
             ["LangGraph", "RAG", "Ollama", "Streamlit", "pytest"],
             "https://github.com/srohitsuryaa21/luxury-concierge-agent", null,
-            "AI", "LOCAL AGENT", "High-consideration buying journeys need recommendations that combine preference capture, product knowledge, pricing, availability, and clear justification.", "Built a LangGraph multi-step agent with local RAG, mocked business tools, conversation memory, an eval CLI, pytest coverage, and a polished Streamlit UI.", "Shows end-to-end agentic AI delivery for luxury, automotive, retail, and enterprise advisory workflows without requiring paid OpenAI credits.", "visual-luxury")
+            "AI", "LOCAL AGENT", "High-consideration buying journeys need recommendations that combine preference capture, product knowledge, pricing, availability, and clear justification.", "Built a LangGraph multi-step agent with local RAG, mocked business tools, conversation memory, an eval CLI, pytest coverage, and a polished Streamlit UI.", "Shows end-to-end agentic AI delivery for luxury, automotive, retail, and enterprise advisory workflows without requiring paid OpenAI credits.", "visual-luxury"),
+        new("06", "Fintech", "FinGuard PayOps", "FinGuard PayOps",
+            "A production-style German/EU fintech platform for SEPA-style payments: fraud and risk scoring, compliance alerts, analyst review, and full audit trails.",
+            "Eine produktionsnahe Fintech-Plattform für SEPA-Zahlungen: Betrugs- und Risikobewertung, Compliance-Alerts, Analystenprüfung und vollständige Audit-Trails.",
+            ["Java 21", "Spring Boot", "PostgreSQL", "Kafka", "React"],
+            "https://github.com/srohitsuryaa21/FinGuard-PayOps", null,
+            "SEPA", "PAYMENTS · RISK · AUDIT", "German and EU fintechs need reliable, auditable payment systems with real risk controls, not just CRUD.", "Built the payment lifecycle, rule-based fraud and risk scoring, compliance alerts, an analyst approve/reject workflow, audit logging, and a React operations dashboard.", "A realistic payment-operations platform proving payments-domain knowledge, risk and compliance awareness, and DORA-style operational resilience.", "visual-fintech")
     ];
 
     private static readonly SkillSet[] Skills =
@@ -578,12 +578,12 @@
             ["2 IEEE publications across applied ML and decentralized finance.", "Built DeFi farmer platform concepts using Ethereum, Solidity, Web3.py, and Ganache.", "Can explain technical trade-offs clearly to both engineering and non-engineering audiences."],
             ["2 IEEE-Veröffentlichungen in Applied ML und Decentralized Finance.", "DeFi-Farmer-Plattform mit Ethereum, Solidity, Web3.py und Ganache konzipiert.", "Kann technische Trade-offs für technische und nicht-technische Zielgruppen klar erklären."],
             ["IEEE", "Applied ML", "Solidity", "Web3.py", "Python", "Communication"], "Research"),
-        new("embedded", "VCU", "Embedded Systems Developer", "Embedded-Systems-Entwickler", "C/C++ / HMI / Safety Logic", "C/C++ / HMI / Safety-Logik", 87, "Control logic with validation discipline.", "Steuerungslogik mit Validierungsdisziplin.",
-            "The new vehicle-control demonstrator shows how I think about operator inputs, safety states, HMI feedback, communication messages, and test evidence for vehicle systems.",
-            "Der neue Fahrzeugsteuerungs-Demonstrator zeigt Bedienereingaben, Safety States, HMI-Feedback, Kommunikationsnachrichten und Testnachweise für Fahrzeugsysteme.",
-            ["Built a PRINOTH-style vehicle-control concept around drive, implement, fault, and emergency-stop states.", "Modeled HMI status, CAN-style messages, startup self-check, reset handling, and validation scenarios.", "Bridges my software background with embedded C/C++, microcontroller logic, and vehicle-system integration."],
-            ["PRINOTH-orientiertes Fahrzeugsteuerungskonzept mit Drive, Implement, Fault und Emergency Stop States.", "HMI-Status, CAN-ähnliche Nachrichten, Startup-Self-Check, Reset-Handling und Validierungsszenarien modelliert.", "Verbindet Softwareerfahrung mit Embedded C/C++, Mikrocontrollerlogik und Fahrzeugsystemintegration."],
-            ["C/C++", "ESP32", "State Machines", "HMI", "CAN Simulation", "Validation"], "Embedded Systems"),
+        new("fintech", "€", "Fintech / Backend Engineer", "Fintech- / Backend-Engineer", "Payments / Risk / Compliance", "Payments / Risk / Compliance", 90, "Reliable, auditable payment systems.", "Zuverlässige, auditierbare Zahlungssysteme.",
+            "FinGuard PayOps shows I can build production-style fintech operations: payment lifecycle, fraud and risk scoring, compliance alerts, analyst review, and complete audit trails.",
+            "FinGuard PayOps zeigt, dass ich produktionsnahe Fintech-Operations bauen kann: Payment-Lifecycle, Betrugs- und Risikobewertung, Compliance-Alerts, Analystenprüfung und vollständige Audit-Trails.",
+            ["Built a SEPA-style payment platform with rule-based fraud and risk scoring and high-risk reasons.", "Modeled compliance alerts, analyst approve/reject workflows, and complete audit logging.", "Backed by Java, Spring Boot, PostgreSQL, and a React operations dashboard with DORA-style resilience thinking."],
+            ["SEPA-orientierte Zahlungsplattform mit regelbasierter Betrugs- und Risikobewertung und High-Risk-Gründen gebaut.", "Compliance-Alerts, Analysten-Freigabe-/Ablehnungs-Workflows und vollständiges Audit-Logging modelliert.", "Auf Basis von Java, Spring Boot, PostgreSQL und einem React-Operations-Dashboard mit DORA-orientiertem Resilienz-Denken."],
+            ["Java", "Spring Boot", "PostgreSQL", "Kafka", "React", "Risk / Compliance"], "Fintech"),
         new("agentic", "AI", "Agentic AI Developer", "Agentic-AI-Entwickler", "LangGraph / RAG / Local LLM", "LangGraph / RAG / lokales LLM", 91, "AI workflows that behave like products.", "KI-Workflows, die wie Produkte funktionieren.",
             "The Luxury Concierge Agent shows I can connect LLM reasoning, retrieval, tool calls, memory, evaluation, and user experience into a business-ready advisory system.",
             "Der Luxury Concierge Agent zeigt, dass ich LLM-Reasoning, Retrieval, Tool Calls, Memory, Evaluation und User Experience zu einem geschaeftsnahen Beratungssystem verbinden kann.",
