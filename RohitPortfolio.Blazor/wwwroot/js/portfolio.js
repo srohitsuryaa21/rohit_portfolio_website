@@ -86,6 +86,24 @@ window.portfolio = {
                 });
                 element.addEventListener("pointerleave", () => element.style.transform = "");
             });
+
+            document.querySelectorAll("[data-holo]").forEach(card => {
+                card.addEventListener("pointermove", event => {
+                    const rect = card.getBoundingClientRect();
+                    const px = (event.clientX - rect.left) / rect.width;
+                    const py = (event.clientY - rect.top) / rect.height;
+                    card.style.setProperty("--ry", `${(px - .5) * 16}deg`);
+                    card.style.setProperty("--rx", `${(.5 - py) * 16}deg`);
+                    card.style.setProperty("--mx", `${20 + px * 60}%`);
+                    card.style.setProperty("--my", `${20 + py * 60}%`);
+                });
+                card.addEventListener("pointerleave", () => {
+                    card.style.setProperty("--rx", "0deg");
+                    card.style.setProperty("--ry", "0deg");
+                    card.style.setProperty("--mx", "50%");
+                    card.style.setProperty("--my", "50%");
+                });
+            });
         }
 
         window.addEventListener("keydown", event => {

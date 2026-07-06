@@ -214,6 +214,20 @@ h1 { max-width: 850px; font-size: clamp(3.4rem, 6.3vw, 7.2rem); font-weight: 600
 .visual-vehicle { background: #72e2c8; }
 .visual-luxury { background: #d8c468; }
 .visual-fintech { background: #3ecf8e; }
+.visual-aviation { background: #6cc6e8; }
+.credentials { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.4rem; margin-top: 3rem; perspective: 900px; }
+.holo-cred { position: relative; width: 330px; max-width: 100%; overflow: hidden; border: 1px solid var(--line); border-radius: 16px; background: var(--surface-2); transform: rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)); transition: transform .18s ease, border-color .3s; will-change: transform; }
+.holo-cred:hover { border-color: var(--lime); }
+.holo-foil { position: absolute; inset: 0; pointer-events: none; opacity: .42; mix-blend-mode: color-dodge; background: linear-gradient(115deg, transparent 20%, rgba(255,0,128,.32), rgba(0,225,255,.32), rgba(185,255,69,.38), rgba(255,0,200,.28), transparent 80%); background-size: 220% 220%; background-position: var(--mx,50%) var(--my,50%); transition: background-position .1s; }
+:root:not([data-theme="dark"]) .holo-foil { mix-blend-mode: soft-light; opacity: .55; }
+.holo-cred-in { position: relative; padding: 1.35rem 1.55rem; }
+.holo-cred-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: .95rem; }
+.holo-mono { font: 800 1rem var(--mono); letter-spacing: -.02em; color: var(--green); }
+.holo-verified { padding: .22rem .55rem; border: 1px solid color-mix(in srgb, var(--lime) 40%, transparent); border-radius: 99px; color: var(--green); font: .56rem var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+.holo-cred-in strong { display: block; color: var(--ink); font-size: 1.18rem; font-weight: 600; letter-spacing: -.01em; }
+.holo-cred-in small { color: var(--muted); font: .62rem var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+@media (max-width: 560px) { .holo-cred { width: 100%; } }
+@media (prefers-reduced-motion: reduce) { .holo-cred { transition: none; transform: none; } }
 .project-content { display: flex; flex-direction: column; padding: clamp(1.5rem,4vw,3.2rem); }
 .project-kicker { color: var(--muted); font: .66rem var(--mono); text-transform: uppercase; }
 .project-content h3 { margin: .7rem 0 1rem; font-size: clamp(2rem,3.4vw,3.6rem); font-weight: 500; line-height: 1; }
