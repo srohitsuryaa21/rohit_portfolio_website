@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rohit Suryaa Saravanan — AI / Machine Learning Engineer</title>
+    <meta name="description" content="Rohit Suryaa Saravanan — AI / Machine Learning Engineer in Fulda, Germany. Ships ML and LLM systems to production. MSc Data Science, two IEEE publications, Agentic AI (LangGraph/RAG)." />
+    <meta name="author" content="Rohit Suryaa Saravanan" />
+    <link rel="canonical" href="https://rohitsuryaa.com/ai/" />
+    <meta name="theme-color" content="#0a0b12" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Rohit Suryaa Saravanan" />
+    <meta property="og:title" content="Rohit Suryaa Saravanan — AI / Machine Learning Engineer" />
+    <meta property="og:description" content="Ships ML and LLM systems to production. MSc Data Science · two IEEE publications · Agentic AI (LangGraph/RAG)." />
+    <meta property="og:url" content="https://rohitsuryaa.com/ai/" />
+    <meta property="og:image" content="https://rohitsuryaa.com/ai/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://rohitsuryaa.com/ai/og-image.png" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org", "@type": "Person",
+      "name": "Rohit Suryaa Saravanan", "jobTitle": "AI / Machine Learning Engineer",
+      "email": "mailto:rohitsuryaas21@gmail.com", "url": "https://rohitsuryaa.com/",
+      "image": "https://rohitsuryaa.com/ai/og-image.png",
+      "address": { "@type": "PostalAddress", "addressLocality": "Fulda", "addressCountry": "Germany" },
+      "knowsAbout": ["Machine Learning","LLM","Agentic AI","LangGraph","RAG","MLOps","PyTorch","XGBoost","Python"],
+      "sameAs": ["https://github.com/srohitsuryaa21","https://linkedin.com/in/rohitsuryaa"]
+    }
+    </script>
+    <link rel="stylesheet" href="app.css" />
+    <link rel="icon" type="image/svg+xml" href="rss_logo.svg" />
+    <style>
+        /* Distinct AI theme — indigo (dark default) */
+        :root, html[data-theme="dark"]{
+            --bg:#0a0b12; --surface:#12141d; --surface-2:#0e1017; --ink:#eaecf6; --ink-2:#a4abc4; --muted:#6a7191;
+            --line:rgba(170,180,255,.13); --lime:#818cf8; --green:#a5b4fc; --shadow:0 24px 90px rgba(0,0,0,.5);
+        }
+        /* Light theme */
+        html.light{
+            --bg:#f4f5fb; --surface:#ffffff; --surface-2:#eceefc; --ink:#171a29; --ink-2:#4a5069; --muted:#7f86a3;
+            --line:rgba(30,35,90,.14); --lime:#5b5bd6; --green:#4f46e5; --shadow:0 24px 80px rgba(30,35,80,.14);
+        }
+        body{ background:var(--bg); transition:background .35s, color .35s; }
+        html.light .btn-primary, html.light .contact-email, html.light .resume-toggle, html.light .resume-options a:hover{ color:#fff; }
+
+        .logo-dot{ box-shadow:0 0 0 4px rgba(129,140,248,.22); }
+        .eyebrow i, .status-line i{ box-shadow:0 0 0 5px rgba(129,140,248,.2); }
+        .cursor-glow{ background:radial-gradient(circle, rgba(129,140,248,.14), transparent 67%); }
+        .btn-primary{ background:var(--lime); color:#0a0b12; }
+        .data-panel{ color:var(--green); }
+
+        /* project-visual panels retinted to the indigo/blue/cyan AI family */
+        .visual-luxury{ background:#8b7cf0; }
+        .visual-wind{ background:#6ea8fe; }
+        .visual-supply{ background:#57cfe0; }
+        .visual-attrition{ background:#b09bf5; }
+        .text-link{ color:var(--lime); font:.68rem var(--mono); text-decoration:none; }
+        .text-link:hover{ text-decoration:underline; }
+
+        /* contact — retinted + more generous lower spacing */
+        .contact-section{ background:radial-gradient(circle at 50% 0%, rgba(129,140,248,.16), transparent 55%), var(--surface-2); color:var(--ink); padding-bottom:9rem; }
+        .contact-section .section-label{ color:var(--muted); }
+        .contact-section h2 em{ color:var(--green); }
+        .contact-orb{ background:radial-gradient(circle, rgba(129,140,248,.28), transparent 70%); }
+        .contact-email{ background:var(--lime); color:#0a0b12; }
+        .contact-actions{ margin:2.4rem 0 0; }
+        .social-row{ color:var(--ink); margin-top:2.6rem; }
+        .social-row a{ color:var(--ink); }
+        .resume-box{ margin-top:2.4rem; margin-bottom:1rem; }
+        .resume-toggle{ background:var(--lime); color:#0a0b12; }
+        .resume-options{ display:none; margin-top:1.3rem; }
+        .resume-box.open .resume-options{ display:flex; }
+        .resume-options a{ border:1px solid var(--line); background:var(--surface); color:var(--ink); }
+        .resume-options a:hover{ background:var(--lime); color:#0a0b12; }
+
+        .type-slot{ position:relative; display:inline-block; vertical-align:top; }
+        .type-ghost{ visibility:hidden; white-space:nowrap; }
+        .type-anim{ position:absolute; left:0; top:0; white-space:nowrap; }
+        .type-word{ color:var(--lime); }
+        .type-caret{ display:inline-block; width:3px; margin-left:2px; background:var(--lime); animation:caret 1s step-end infinite; }
+        @keyframes caret{ 50%{opacity:0;} }
+        .ai-tag{ display:inline-flex; align-items:center; gap:.4rem; padding:.3rem .7rem; border:1px solid var(--line); border-radius:99px; font:500 .62rem var(--mono); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-2); }
+        .stack-hint{ font:.66rem var(--mono); color:var(--muted); text-align:center; margin-top:.8rem; }
+
+        .pub-list{ display:grid; gap:1.1rem; margin-top:1rem; }
+        .pub-item{ border-left:2px solid var(--lime); padding:.3rem 0 .3rem 1.2rem; }
+        .pub-item h3{ font-size:1.08rem; font-weight:600; }
+        .pub-item p{ color:var(--ink-2); font-size:.92rem; }
+        .pub-item a{ color:var(--lime); font:.7rem var(--mono); text-decoration:none; }
+        .pub-item a:hover{ text-decoration:underline; }
+        .skill-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1.4rem 2.6rem; margin-top:1rem; }
+        .skill-item{ border-bottom:1px solid var(--line); padding-bottom:.9rem; }
+        .skill-item b{ display:block; font:600 .68rem var(--mono); letter-spacing:.06em; text-transform:uppercase; color:var(--lime); margin-bottom:.4rem; }
+        .skill-item span{ color:var(--ink-2); font-size:.92rem; }
+        .edu-row{ display:flex; justify-content:space-between; gap:1rem; align-items:baseline; border-top:1px solid var(--line); padding:1.1rem 0; }
+        .edu-row h3{ font-size:1.1rem; font-weight:600; }
+        .edu-row p{ color:var(--ink-2); font-size:.88rem; }
+        .edu-row time{ font:.72rem var(--mono); color:var(--muted); white-space:nowrap; }
+        .cert-row{ display:flex; flex-wrap:wrap; gap:.7rem; margin-top:1.4rem; }
+        .cert-row span{ padding:.55rem 1rem; border:1px solid var(--line); border-radius:8px; background:var(--surface); color:var(--ink-2); font:.8rem var(--mono); }
+        @media (max-width:760px){ .skill-grid{grid-template-columns:1fr;} .edu-row{flex-direction:column;gap:.3rem;} }
+    </style>
+</head>
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="scroll-progress" aria-hidden="true"><span></span></div>
+    <div class="cursor-glow" aria-hidden="true"></div>
+
+    <nav aria-label="Primary navigation">
+        <a class="nav-logo" href="#hero" aria-label="Rohit Suryaa Saravanan — AI"><span>R</span><span class="logo-dot"></span><span>S</span></a>
+        <ul class="nav-links">
+            <li><a href="#work">Work</a></li>
+            <li><a href="#publications">Publications</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+            <a class="icon-button" style="width:auto;border-radius:30px;padding:0 .9rem;text-decoration:none" href="#contact">Résumé ↓</a>
+            <button class="icon-button" id="themeToggle" aria-label="Toggle light or dark theme">◐</button>
+            <button class="mobile-menu-button" id="menuBtn" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span></button>
+        </div>
+    </nav>
+
+    <main id="main">
+        <section id="hero" data-section>
+            <div class="hero-noise"></div>
+            <canvas class="hero-particles" aria-hidden="true"></canvas>
+            <div class="hero-copy reveal">
+                <div class="eyebrow"><i></i>AI / ML Engineer · Fulda · Available 15 July 2026</div>
+                <h1>I ship <span class="type-slot"><span class="type-ghost">machine learning</span><span class="type-anim"><span class="type-word" id="typeWord">machine learning</span><span class="type-caret" aria-hidden="true">&nbsp;</span></span></span><span class="outline-text">into production.</span></h1>
+                <p class="hero-sub">AI/ML Engineer who takes machine-learning and LLM systems from data and modelling through evaluation, APIs, and deployment. MSc Data Science, two peer-reviewed IEEE publications, and a year of production software engineering.</p>
+                <div class="hero-cta">
+                    <a href="#contact" class="btn-primary magnetic">Download résumé <span>↓</span></a>
+                    <a href="#work" class="btn-quiet">See selected work ↘</a>
+                </div>
+                <div class="hero-meta">
+                    <span><strong>02</strong> IEEE publications</span>
+                    <span><strong>MSc</strong> Data Science</span>
+                    <span><strong>EN C1+</strong> · DE A2</span>
+                </div>
+            </div>
+
+            <div class="hero-stage reveal" data-tilt>
+                <div class="stage-chrome"><span></span><span></span><span></span><small>rohit://ml-engineering</small></div>
+                <div class="stage-grid">
+                    <div class="portrait-panel">
+                        <div class="portrait-frame"><img src="images/rohit.jpg" alt="Portrait of Rohit Suryaa Saravanan" /><div class="scan-line"></div></div>
+                        <div class="status-line"><i></i> SYSTEM ONLINE</div>
+                    </div>
+                    <div class="data-panel">
+                        <div class="data-label">MODEL PERFORMANCE</div>
+                        <strong class="counter" data-count="96">0</strong><b>%</b>
+                        <svg viewBox="0 0 280 95" role="img" aria-label="Rising model performance chart">
+                            <defs><linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="currentColor" stop-opacity=".35"/><stop offset="1" stop-color="currentColor" stop-opacity="0"/></linearGradient></defs>
+                            <path class="chart-area" d="M0,82 C30,76 43,66 67,70 S107,45 132,54 S173,32 197,38 S235,13 280,8 L280,95 L0,95Z"/>
+                            <path class="chart-line" d="M0,82 C30,76 43,66 67,70 S107,45 132,54 S173,32 197,38 S235,13 280,8"/>
+                        </svg>
+                        <div class="data-row"><span>ERROR RATE</span><strong>2.3%</strong></div>
+                        <div class="data-row"><span>POWER GAIN</span><strong>+21%</strong></div>
+                    </div>
+                </div>
+                <div class="floating-chip chip-one">LangGraph</div>
+                <div class="floating-chip chip-two">RAG</div>
+                <div class="floating-chip chip-three">PyTorch</div>
+            </div>
+            <a class="scroll-cue" href="#about"><span></span>Scroll to explore</a>
+        </section>
+
+        <section id="about" class="section-shell" data-section>
+            <div class="section-number">01</div>
+            <div class="section-intro reveal"><div class="section-label">Positioning</div><h2>Models that reach<br /><em>production.</em></h2></div>
+            <div class="reveal" style="max-width:820px">
+                <p style="font-size:clamp(1.05rem,1.7vw,1.3rem);color:var(--ink-2);line-height:1.75">I work at the point where <strong style="color:var(--ink)">machine learning meets engineering</strong> — the model matters, but so do the API around it, the evaluation harness, the pipeline, and whether it ships. Recent focus is <strong style="color:var(--ink)">Agentic AI</strong>: a local-first LangGraph/RAG concierge with tool-calling, memory, an eval CLI, and pytest. Currently completing an MSc in Data Science at Hochschule Fulda.</p>
+                <div style="display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.6rem">
+                    <span class="ai-tag">Applied ML</span><span class="ai-tag">LLM · Agentic AI</span><span class="ai-tag">MLOps</span><span class="ai-tag">2× IEEE</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="work" class="section-shell" data-section>
+            <div class="section-number">02</div>
+            <div class="section-intro reveal"><div><div class="section-label">Selected work</div><h2>Proof, not promises.</h2></div></div>
+            <div class="project-stack-shell reveal">
+                <div class="project-stack-topline">
+                    <div><span>Drag the deck</span><strong id="pTitle">Luxury Concierge Agent</strong></div>
+                    <div class="project-stack-actions">
+                        <a class="project-stack-link" id="pLink" target="_blank" rel="noopener" href="https://github.com/srohitsuryaa21/luxury-concierge-agent">GitHub repo →</a>
+                        <div class="project-stack-controls">
+                            <button type="button" id="pPrev" aria-label="Previous project">‹</button>
+                            <span id="pCount">1/4</span>
+                            <button type="button" id="pNext" aria-label="Next project">›</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-stack" id="pStack" tabindex="0" aria-label="Draggable project deck"></div>
+                <div class="project-stack-dots" id="pDots"></div>
+                <p class="stack-hint">Drag, swipe, or use the arrows / dots</p>
+            </div>
+        </section>
+
+        <section id="publications" class="section-shell" data-section>
+            <div class="section-number">03</div>
+            <div class="section-intro reveal"><div><div class="section-label">Publications</div><h2>Peer-reviewed <em>IEEE.</em></h2></div></div>
+            <div class="pub-list reveal">
+                <div class="pub-item">
+                    <h3>Windmill Pitch Prediction with Adaptive Control</h3>
+                    <p>IEEE ICEMCE 2023 — applied machine learning.</p>
+                    <a href="https://doi.org/10.1109/ICEMCE57940.2023.10433983" target="_blank" rel="noopener">DOI: 10.1109/ICEMCE57940.2023.10433983 ↗</a>
+                </div>
+                <div class="pub-item">
+                    <h3>DeFi Farmer Platform</h3>
+                    <p>IEEE ICSCSS 2024 — blockchain-based agricultural finance.</p>
+                    <a href="https://doi.org/10.1109/ICSCSS60660.2024.10625462" target="_blank" rel="noopener">DOI: 10.1109/ICSCSS60660.2024.10625462 ↗</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="section-shell" data-section>
+            <div class="section-number">04</div>
+            <div class="section-intro reveal"><div><div class="section-label">Technical skills</div><h2>Built across the ML stack.</h2></div></div>
+            <div class="skill-grid reveal">
+                <div class="skill-item"><b>Machine Learning</b><span>Python, PyTorch, TensorFlow, Scikit-learn, XGBoost, time-series, classification, model evaluation, explainability</span></div>
+                <div class="skill-item"><b>LLM &amp; Agentic AI</b><span>LangGraph, RAG, local LLMs (Ollama), agent design, eval harnesses, ChromaDB, Streamlit</span></div>
+                <div class="skill-item"><b>ML Engineering / MLOps</b><span>Docker, CI/CD (GitHub Actions, Jenkins), Azure, Git, REST APIs, pytest, Linux, YAML</span></div>
+                <div class="skill-item"><b>Data</b><span>Complex SQL, Pandas, NumPy, ETL pipelines, feature engineering, PostgreSQL, MySQL, MongoDB</span></div>
+                <div class="skill-item"><b>Software Engineering</b><span>C#, ASP.NET Core, Blazor, Java, Spring Boot — production software background</span></div>
+            </div>
+        </section>
+
+        <section id="education" class="section-shell" data-section>
+            <div class="section-number">05</div>
+            <div class="section-intro reveal"><div><div class="section-label">Education &amp; certifications</div><h2>Always in learning mode.</h2></div></div>
+            <div class="reveal">
+                <div class="edu-row"><div><h3>MSc Data Science — Hochschule Fulda, Germany</h3><p>Machine Learning · Data Mining &amp; Predictive Analytics · Big Data &amp; Distributed Systems · Research Methods · Data Ethics &amp; GDPR</p></div><time>2025 — Present</time></div>
+                <div class="edu-row"><div><h3>BTech Big Data Computer Science — SRM University, India</h3><p>Big Data systems · Distributed Systems · Algorithms · Databases · Software Engineering</p></div><time>2020 — 2024</time></div>
+                <div class="cert-row"><span>IBM Data Science Professional</span></div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section" data-section>
+            <div class="contact-orb"></div>
+            <div class="contact-inner reveal">
+                <div class="section-label">Get in touch</div>
+                <h2>Let's ship something<br /><em>intelligent.</em></h2>
+                <p>Open to AI / Machine Learning Engineer roles in Germany and beyond — Applied ML, LLM/Agentic AI, and MLOps.</p>
+                <div class="contact-actions">
+                    <a href="mailto:rohitsuryaas21@gmail.com" class="contact-email magnetic">rohitsuryaas21@gmail.com <span>↗</span></a>
+                </div>
+                <div class="resume-box" id="resumeBox">
+                    <button type="button" class="resume-toggle" id="resumeToggle" aria-expanded="false" aria-controls="resumeOpts">
+                        <span>Download my résumé</span><span class="resume-caret" aria-hidden="true">↓</span>
+                    </button>
+                    <div class="resume-options" id="resumeOpts">
+                        <a href="resumes/Rohit-Suryaa-Saravanan-AI-ML-Engineer-EN.pdf" download><span class="resume-lang">English</span><span class="resume-meta">PDF · 2 pages</span></a>
+                        <a href="resumes/Rohit-Suryaa-Saravanan-AI-ML-Engineer-DE.pdf" download><span class="resume-lang">Deutsch</span><span class="resume-meta">PDF · 2 Seiten</span></a>
+                    </div>
+                </div>
+                <div class="social-row">
+                    <a target="_blank" rel="noopener" href="https://github.com/srohitsuryaa21">GitHub ↗</a>
+                    <a target="_blank" rel="noopener" href="https://linkedin.com/in/rohitsuryaa">LinkedIn ↗</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <span>© 2026 Rohit Suryaa Saravanan</span>
+        <span>AI / Machine Learning Engineer</span>
+        <a href="#hero">Back to top ↑</a>
+    </footer>
+
+    <script>
+    (function(){
+      var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var root = document.documentElement;
+
+      // theme toggle (persisted)
+      var tt=document.getElementById("themeToggle");
+      function setTheme(light){ root.classList.toggle("light",light); if(tt) tt.textContent=light?"☀":"◐"; try{localStorage.setItem("ai-theme",light?"light":"dark");}catch(e){} }
+      try{ setTheme(localStorage.getItem("ai-theme")==="light"); }catch(e){}
+      if(tt) tt.addEventListener("click",function(){ setTheme(!root.classList.contains("light")); });
+
+      // mobile menu
+      var mb=document.getElementById("menuBtn"), nl=document.querySelector(".nav-links");
+      if(mb && nl){ mb.addEventListener("click",function(){ var o=nl.classList.toggle("open"); mb.setAttribute("aria-expanded",o?"true":"false"); }); nl.querySelectorAll("a").forEach(function(a){ a.addEventListener("click",function(){ nl.classList.remove("open"); }); }); }
+
+      // scroll progress
+      var bar = document.querySelector(".scroll-progress span");
+      function sp(){ var m=document.documentElement.scrollHeight-window.innerHeight; if(bar) bar.style.width=(m>0?(window.scrollY/m)*100:0)+"%"; }
+      window.addEventListener("scroll", sp, {passive:true}); sp();
+
+      // cursor glow
+      var glow=document.querySelector(".cursor-glow");
+      if(glow && !reduced && window.matchMedia("(pointer:fine)").matches){
+        window.addEventListener("pointermove",function(e){ glow.style.left=e.clientX+"px"; glow.style.top=e.clientY+"px"; },{passive:true});
+      }
+
+      // reveal
+      var reveals=document.querySelectorAll(".reveal");
+      if(reduced){ reveals.forEach(function(el){el.classList.add("visible");}); }
+      else { var ro=new IntersectionObserver(function(es){es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add("visible"); ro.unobserve(en.target);} });},{threshold:.12,rootMargin:"0px 0px -40px"}); reveals.forEach(function(el){ro.observe(el);}); }
+
+      // counter
+      document.querySelectorAll(".counter").forEach(function(c){ var t=+(c.dataset.count||0); if(reduced){c.textContent=t;return;} var cur=0; var iv=setInterval(function(){ cur+=Math.max(1,Math.ceil((t-cur)/9)); c.textContent=Math.min(cur,t); if(cur>=t)clearInterval(iv); },32); });
+
+      // magnetic + tilt
+      if(!reduced && window.matchMedia("(pointer:fine)").matches){
+        document.querySelectorAll(".magnetic").forEach(function(el){ el.addEventListener("pointermove",function(e){ var r=el.getBoundingClientRect(); el.style.transform="translate("+((e.clientX-r.left-r.width/2)*.08)+"px,"+((e.clientY-r.top-r.height/2)*.12)+"px)"; }); el.addEventListener("pointerleave",function(){el.style.transform="";}); });
+        document.querySelectorAll("[data-tilt]").forEach(function(el){ el.addEventListener("pointermove",function(e){ if(el.closest(".project-stack"))return; var r=el.getBoundingClientRect(); var x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5; el.style.transform="perspective(1100px) rotateX("+(y*-3)+"deg) rotateY("+(x*4)+"deg) translateY(-3px)"; }); el.addEventListener("pointerleave",function(){el.style.transform="";}); });
+      }
+
+      // typing headline
+      var tw=document.getElementById("typeWord");
+      if(tw && !reduced){
+        var words=["machine learning","LLM agents","RAG systems","MLOps pipelines"], wi=0, ci=0, del=false;
+        function tick(){ var w=words[wi]; tw.textContent=w.substring(0,ci); if(!del){ if(ci<w.length){ci++;setTimeout(tick,70);} else {del=true;setTimeout(tick,1400);} } else { if(ci>0){ci--;setTimeout(tick,35);} else {del=false;wi=(wi+1)%words.length;setTimeout(tick,220);} } }
+        setTimeout(tick,900);
+      }
+
+      // résumé single toggle -> two downloads
+      var rt=document.getElementById("resumeToggle"), rbx=document.getElementById("resumeBox");
+      if(rt && rbx){ rt.addEventListener("click",function(){ var open=rbx.classList.toggle("open"); rt.setAttribute("aria-expanded",open?"true":"false"); }); }
+
+      // ---- Selected work: stacked project deck (same interaction as main site) ----
+      var projects=[
+        { num:"01", cat:"LLM & Agentic AI", title:"Luxury Concierge Agent", visual:"visual-luxury", metric:"LLM", metricLabel:"AGENTIC AI",
+          desc:"A local-first agentic assistant that turns client context into guided luxury-vehicle recommendations.",
+          tags:["LangGraph","RAG","Ollama","ChromaDB","Streamlit","pytest"],
+          challenge:"Turning an LLM demo into something reliable, testable, and reproducible.",
+          approach:"A LangGraph multi-step agent with local RAG, tool-calling, memory, a Typer eval CLI, and pytest.",
+          outcome:"A runnable, evaluated agent — engineering scaffolding, not just a prompt.",
+          github:"https://github.com/srohitsuryaa21/luxury-concierge-agent" },
+        { num:"02", cat:"Applied ML · IEEE", title:"Windmill Pitch Prediction", visual:"visual-wind", metric:"+21%", metricLabel:"POWER OUTPUT",
+          desc:"Adaptive prediction that turns live turbine data into precise pitch control and measurable gains.",
+          tags:["XGBoost","Time Series","Python","Simulation"],
+          challenge:"Pitch-control errors reduced turbine efficiency and created unstable output.",
+          approach:"26 temporal features combined with XGBoost and a residual-correction layer.",
+          outcome:"96% accuracy, error 8.6% → 2.3%, +21% output. Peer-reviewed IEEE publication.",
+          github:"https://github.com/srohitsuryaa21/windmill-pitch-prediction" },
+        { num:"03", cat:"ML · Forecasting", title:"Supply Chain Intelligence", visual:"visual-supply", metric:"<20%", metricLabel:"FORECAST MAPE",
+          desc:"An end-to-end ML pipeline over 110,123 e-commerce transactions with a decision dashboard.",
+          tags:["SARIMA","XGBoost","Plotly Dash","Python","SQL"],
+          challenge:"Fragmented operational data across demand, delivery, and seller risk.",
+          approach:"A forecasting benchmark, EOQ optimisation, risk scoring, and an interactive dashboard.",
+          outcome:"Sub-20% MAPE, 92.1% on-time analysis, and risk scores for 881 sellers.",
+          github:"https://github.com/srohitsuryaa21/supply-chain-forecasting" },
+        { num:"04", cat:"ML · Explainability", title:"Employee Attrition Prediction", visual:"visual-attrition", metric:"360°", metricLabel:"WORKFORCE VIEW",
+          desc:"An interpretable HR model that explains the factors driving attrition, not just predicts it.",
+          tags:["Scikit-learn","EDA","Classification","Explainability"],
+          challenge:"HR needed a defensible way to identify retention risk across many variables.",
+          approach:"EDA, feature engineering, model comparison, and interpretable driver analysis.",
+          outcome:"Actionable retention signals and a repeatable workforce-risk workflow.",
+          github:"https://github.com/srohitsuryaa21/employee-attrition-prediction" }
+      ];
+      var stack=document.getElementById("pStack"), dotsEl=document.getElementById("pDots");
+      if(stack){
+        var active=0, n=projects.length;
+        projects.forEach(function(p,i){
+          var card=document.createElement("div");
+          card.className="project-stack-card"; card.dataset.i=i;
+          card.innerHTML=
+            '<article class="project-card">'+
+              '<div class="project-visual '+p.visual+'" aria-hidden="true"><span class="project-index">'+p.num+'</span><div class="visual-grid"></div><div class="visual-orbit orbit-one"></div><div class="visual-orbit orbit-two"></div><strong>'+p.metric+'</strong><small>'+p.metricLabel+'</small></div>'+
+              '<div class="project-content"><div class="project-kicker">'+p.cat+'</div><h3>'+p.title+'</h3><p>'+p.desc+'</p>'+
+                '<div class="project-foot">'+p.tags.map(function(t){return '<span class="project-tag">'+t+'</span>';}).join('')+'</div>'+
+                '<details class="case-study"><summary>View case study <span>+</span></summary><div class="case-study-grid">'+
+                  '<div><small>Challenge</small><p>'+p.challenge+'</p></div><div><small>Approach</small><p>'+p.approach+'</p></div><div><small>Outcome</small><p>'+p.outcome+'</p></div>'+
+                '</div></details>'+
+                '<div class="project-links"><a class="text-link" target="_blank" rel="noopener" href="'+p.github+'">Source code →</a></div>'+
+              '</div>'+
+            '</article>';
+          stack.appendChild(card);
+          var dot=document.createElement("button"); dot.type="button"; dot.setAttribute("aria-label","Open project "+(i+1));
+          dot.addEventListener("click",function(){ active=i; stack.style.setProperty("--drag",0); layout(); });
+          dotsEl.appendChild(dot);
+        });
+        var cards=[].slice.call(stack.children), dots=[].slice.call(dotsEl.children);
+        var titleEl=document.getElementById("pTitle"), linkEl=document.getElementById("pLink"), countEl=document.getElementById("pCount");
+        function layout(){
+          cards.forEach(function(card,i){
+            var off=i-active; if(off>n/2)off-=n; if(off<-n/2)off+=n; off=Math.max(-3,Math.min(3,off));
+            var dist=Math.abs(off);
+            card.className="project-stack-card"+(off===0?" active":off<0?" is-left":" is-right")+(dist>2?" is-hidden":"");
+            card.style.setProperty("--offset",off); card.style.setProperty("--distance",dist); card.style.zIndex=80-dist;
+          });
+          var p=projects[active]; titleEl.textContent=p.title; linkEl.href=p.github; countEl.textContent=(active+1)+"/"+n;
+          dots.forEach(function(d,i){ d.classList.toggle("active",i===active); });
+        }
+        function move(d){ active=(active+d+n)%n; stack.style.setProperty("--drag",0); layout(); }
+        cards.forEach(function(card){ card.addEventListener("click",function(e){ if(card.classList.contains("active")||dragMoved>6)return; if(e.target.closest("a,summary"))return; active=+card.dataset.i; stack.style.setProperty("--drag",0); layout(); }); });
+        var down=false, sx=0, dragMoved=0;
+        stack.addEventListener("pointerdown",function(e){ down=true; sx=e.clientX; dragMoved=0; stack.classList.add("dragging"); });
+        stack.addEventListener("pointermove",function(e){ if(!down)return; var dx=e.clientX-sx; dragMoved=Math.abs(dx); stack.style.setProperty("--drag",Math.max(-1,Math.min(1,dx/180))); });
+        function endDrag(e){ if(!down)return; down=false; stack.classList.remove("dragging"); var dx=(e.clientX||sx)-sx; stack.style.setProperty("--drag",0); if(Math.abs(dx)>55) move(dx<0?1:-1); }
+        stack.addEventListener("pointerup",endDrag); stack.addEventListener("pointerleave",endDrag);
+        document.getElementById("pPrev").addEventListener("click",function(){move(-1);});
+        document.getElementById("pNext").addEventListener("click",function(){move(1);});
+        stack.addEventListener("keydown",function(e){ if(e.key==="ArrowLeft"){move(-1);} if(e.key==="ArrowRight"){move(1);} });
+        layout();
+      }
+
+      // ---- 3D wireframe icosahedron "AI core" (ai-only) ----
+      var canvas=document.querySelector(".hero-particles");
+      if(canvas && !reduced && window.innerWidth>=820){
+        var ctx=canvas.getContext("2d",{alpha:true}), hero=document.getElementById("hero");
+        var W=0,H=0,cx=0,cy=0,dpr=1,FOV=620,R=129,G=140,B=248, PHI=(1+Math.sqrt(5))/2;
+        var V=[[-1,PHI,0],[1,PHI,0],[-1,-PHI,0],[1,-PHI,0],[0,-1,PHI],[0,1,PHI],[0,-1,-PHI],[0,1,-PHI],[PHI,0,-1],[PHI,0,1],[-PHI,0,-1],[-PHI,0,1]];
+        var E=[]; for(var i=0;i<12;i++){for(var j=i+1;j<12;j++){var ex=V[i][0]-V[j][0],ey=V[i][1]-V[j][1],ez=V[i][2]-V[j][2];if(Math.abs(ex*ex+ey*ey+ez*ez-4)<0.15)E.push([i,j]);}}
+        function resize(){dpr=Math.min(window.devicePixelRatio||1,2);var r=hero.getBoundingClientRect();W=Math.max(1,r.width);H=Math.max(1,r.height);canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);canvas.style.width=W+"px";canvas.style.height=H+"px";ctx.setTransform(dpr,0,0,dpr,0,0);cx=W/2;cy=H/2;}
+        var mx=0,my=0,ox=0,oy=0,ay=0,vis=true,t0=performance.now();
+        window.addEventListener("pointermove",function(e){var r=hero.getBoundingClientRect();mx=((e.clientX-r.left)/W-.5)*2;my=((e.clientY-r.top)/H-.5)*2;},{passive:true});
+        function frame(now){
+          requestAnimationFrame(frame); if(!vis)return;
+          var tm=(now-t0)/1000; ox+=(-my*.5-ox)*.05; oy+=(mx*.6-oy)*.05; ay+=.005;
+          var rY=ay+oy, rX=ox+tm*0.15, cY=Math.cos(rY),sY=Math.sin(rY),cX=Math.cos(rX),sX=Math.sin(rX), Rr=Math.min(W,H)*0.26;
+          ctx.clearRect(0,0,W,H);
+          var P=[];
+          for(var i=0;i<12;i++){ var x=V[i][0]*Rr,y=V[i][1]*Rr,z=V[i][2]*Rr; var x1=x*cY-z*sY, z1=x*sY+z*cY; var y2=y*cX-z1*sX, z2=y*sX+z1*cX; var s=FOV/(FOV+z2); P.push({x:cx+x1*s,y:cy+y2*s,s:s}); }
+          ctx.lineWidth=1.1;
+          for(var e=0;e<E.length;e++){ var a=P[E[e][0]],b=P[E[e][1]]; var al=Math.max(.08,Math.min(.6,(a.s+b.s-1.2)*.7)); ctx.strokeStyle="rgba("+R+","+G+","+B+","+al+")"; ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke(); }
+          for(var i=0;i<12;i++){ var p=P[i]; var rad=1.6+2.2*p.s; var al=Math.min(1,.4+.6*p.s); ctx.fillStyle="rgba("+R+","+G+","+B+","+al+")"; ctx.beginPath(); ctx.arc(p.x,p.y,rad,0,6.2832); ctx.fill(); }
+        }
+        resize();window.addEventListener("resize",function(){clearTimeout(canvas._rt);canvas._rt=setTimeout(resize,180);},{passive:true});
+        document.addEventListener("visibilitychange",function(){vis=!document.hidden;});
+        requestAnimationFrame(frame);requestAnimationFrame(function(){canvas.classList.add("is-live");});
+      }
+    })();
+    </script>
+</body>
+</html>

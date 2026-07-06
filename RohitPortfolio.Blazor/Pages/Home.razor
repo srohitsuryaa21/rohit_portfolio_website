@@ -281,13 +281,21 @@
             <article><time>2025 — @T("Present", "Heute")</time><div><h3>MSc Data Science</h3><p>Hochschule Fulda · Germany</p></div><span>01</span></article>
             <article><time>2020 — 2024</time><div><h3>BTech Big Data Computer Science</h3><p>SRM University · Chennai, India</p></div><span>02</span></article>
         </div>
-        <div class="credential-marquee" aria-label="Certifications">
-            <div>
-                @foreach (var cert in Certifications.Concat(Certifications))
-                {
-                    <span><i>✦</i> @cert</span>
-                }
-            </div>
+        <div class="credentials reveal" aria-label="Certifications">
+            @foreach (var cert in Certifications)
+            {
+                <article class="holo-cred" data-holo tabindex="0">
+                    <span class="holo-foil" aria-hidden="true"></span>
+                    <div class="holo-cred-in">
+                        <div class="holo-cred-top">
+                            <span class="holo-mono">@cert.Mono</span>
+                            <span class="holo-verified">◈ @T("Verified", "Verifiziert")</span>
+                        </div>
+                        <strong>@cert.Name</strong>
+                        <small>@cert.Issuer</small>
+                    </div>
+                </article>
+            }
         </div>
     </section>
 
@@ -523,27 +531,40 @@
             "Ein agentischer KI-Concierge fuer hochwertige Fahrzeugkonfigurationen, der Nutzung, Region, Kabinenstimmung, Budget und Lieferzeit in gefuehrte Empfehlungen uebersetzt.",
             ["LangGraph", "RAG", "Ollama", "Streamlit", "pytest"],
             "https://github.com/srohitsuryaa21/luxury-concierge-agent", null,
-            "AI", "LOCAL AGENT", "High-consideration buying journeys need recommendations that combine preference capture, product knowledge, pricing, availability, and clear justification.", "Built a LangGraph multi-step agent with local RAG, mocked business tools, conversation memory, an eval CLI, pytest coverage, and a polished Streamlit UI.", "Shows end-to-end agentic AI delivery for luxury, automotive, retail, and enterprise advisory workflows without requiring paid OpenAI credits.", "visual-luxury"),
+            "AI", "LOCAL AGENT", "High-consideration buying journeys need recommendations that combine preference capture, product knowledge, pricing, availability, and clear justification.", "Built a LangGraph multi-step agent with local RAG, mocked business tools, conversation memory, an eval CLI, pytest coverage, and a polished Streamlit UI.", "Demonstrates end-to-end agentic AI delivery — LLM reasoning, retrieval, tool use, memory, and evaluation — running fully on local, open-source models.", "visual-luxury"),
         new("06", "Fintech", "FinGuard PayOps", "FinGuard PayOps",
             "A production-style German/EU fintech platform for SEPA-style payments: fraud and risk scoring, compliance alerts, analyst review, and full audit trails.",
             "Eine produktionsnahe Fintech-Plattform für SEPA-Zahlungen: Betrugs- und Risikobewertung, Compliance-Alerts, Analystenprüfung und vollständige Audit-Trails.",
             ["Java 21", "Spring Boot", "PostgreSQL", "Kafka", "React"],
             "https://github.com/srohitsuryaa21/FinGuard-PayOps", null,
-            "SEPA", "PAYMENTS · RISK · AUDIT", "German and EU fintechs need reliable, auditable payment systems with real risk controls, not just CRUD.", "Built the payment lifecycle, rule-based fraud and risk scoring, compliance alerts, an analyst approve/reject workflow, audit logging, and a React operations dashboard.", "A realistic payment-operations platform proving payments-domain knowledge, risk and compliance awareness, and DORA-style operational resilience.", "visual-fintech")
+            "SEPA", "PAYMENTS · RISK · AUDIT", "German and EU fintechs need reliable, auditable payment systems with real risk controls, not just CRUD.", "Built the payment lifecycle, rule-based fraud and risk scoring, compliance alerts, an analyst approve/reject workflow, audit logging, and a React operations dashboard.", "A realistic payment-operations platform proving payments-domain knowledge, risk and compliance awareness, and DORA-style operational resilience.", "visual-fintech"),
+        new("07", "Data Engineering", "Aviation Delay Ontology", "Aviation Delay Ontology",
+            "A Palantir Foundry-style data pipeline and Power BI dashboard that model US flight delays as an ontology of Flight and Airport objects.",
+            "Eine Foundry-orientierte Datenpipeline und ein Power-BI-Dashboard, die US-Flugverspätungen als Ontologie aus Flight- und Airport-Objekten modellieren.",
+            ["Power BI", "Python", "Pandas", "PySpark", "Ontology"],
+            "https://github.com/srohitsuryaa21/aviation-delay-ontology", null,
+            "63K", "FLIGHTS ANALYSED", "Raw flight data needed to become a queryable, decision-ready model — the ingest-to-transform-to-ontology-to-dashboard flow a Palantir Foundry team would build.", "Built a pandas pipeline with cleaning, derived delay features, a stable ontology-style flight_id key, and an airport dimension, plus PySpark transforms portable to Palantir Foundry.", "A Power BI dashboard with airport slicers, KPI cards, and delay-cause analysis — surfacing that ORD ran far worse than ATL (21.1 vs 13.6 min average delay).", "visual-aviation"),
+        new("08", "Data Engineering", "SOC Silverstone — F1 Telemetry Analysis", "SOC Silverstone — F1-Telemetrieanalyse",
+            "A motorsport data-analysis project inferring ERS battery-deployment behaviour and tyre degradation at the 2026 British Grand Prix from FastF1 public telemetry.",
+            "Ein Motorsport-Datenanalyseprojekt, das ERS-Batterieeinsatz und Reifenabbau beim Großen Preis von Großbritannien 2026 aus öffentlicher FastF1-Telemetrie ableitet.",
+            ["Python", "FastF1", "Telemetry", "EDA", "Statistics"],
+            "https://github.com/srohitsuryaa21/SOC-Silverstone-2026", null,
+            "F1", "TELEMETRY ANALYSIS", "F1 does not publish raw ERS or battery state-of-charge channels, so deployment behaviour has to be inferred from public telemetry.", "Loaded FastF1 sprint, qualifying, and race data, detected key straights, built an inferred deployment proxy from speed and throttle, and fit tyre-degradation slopes per stint.", "Found deployment efficiency and tyre degradation effectively independent (r = -0.04), with the strongest teammate deployment edges for Antonelli, Norris, Gasly, and Leclerc.", "visual-motorsport")
     ];
 
     private static readonly SkillSet[] Skills =
     [
         new("DATA / ML", ["Python", "Pandas", "Scikit-learn", "XGBoost", "TensorFlow", "Time Series"]),
         new("AGENTIC AI", ["LangGraph", "RAG", "Ollama", "Streamlit", "ChromaDB", "pytest"]),
-        new("ENGINEERING", ["C#", ".NET", "Java", "Spring Boot", "REST APIs", "Blazor"]),
-        new("DATA PLATFORMS", ["PostgreSQL", "MySQL", "MongoDB", "Plotly", "Complex SQL"]),
+        new("ENGINEERING", ["C#", ".NET", "Java", "Spring Boot", "REST APIs", "Blazor", "Fluxor"]),
+        new("DATA PLATFORMS", ["PostgreSQL", "MySQL", "MongoDB", "Power BI", "Plotly", "Complex SQL"]),
         new("DELIVERY", ["Azure", "Docker", "Jenkins", "CI/CD", "Git", "Agile"])
     ];
 
-    private static readonly string[] Certifications =
+    private static readonly (string Name, string Issuer, string Mono)[] Certifications =
     [
-        "Airbus Supply Chain Specialist", "IBM Data Science Professional", "Google Data Analytics", "Data Science Bootcamp 2026"
+        ("IBM Data Science Professional", "Coursera", "IBM"),
+        ("Airbus Supply Chain Specialist", "Airbus Beyond · Coursera", "AB")
     ];
 
     private static readonly RoleFit[] RoleFits =
