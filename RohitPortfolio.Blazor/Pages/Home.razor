@@ -47,9 +47,9 @@
                 <a href="#work" class="btn-primary magnetic">@T("Explore selected work", "Projekte entdecken") <span>↘</span></a>
                 <a href="mailto:Rohitsuryaas21@gmail.com" class="btn-quiet">@T("Start a conversation", "Kontakt aufnehmen") ↗</a>
             </div>
-            <a class="hero-nudge magnetic" href="#lab">
+            <a class="hero-nudge magnetic" href="#proof">
                 <span></span>
-                @T("New: scan my fit for your open role", "Neu: Rollen-Fit für Ihre Position prüfen")
+                @T("New: open the evidence console", "Neu: Evidence Console öffnen")
             </a>
             <div class="hero-meta">
                 <span><strong>02</strong> IEEE publications</span>
@@ -116,8 +116,59 @@
         </div>
     </section>
 
-    <section id="work" class="section-shell work-section" data-section>
+    <section id="proof" class="section-shell proof-section" data-section>
         <div class="section-number">02</div>
+        <div class="section-intro reveal">
+            <div>
+                <div class="section-label">@T("Evidence console", "Evidence Console")</div>
+                <h2>@T("Signals that survive", "Signale, die bestehen.")<br /><em>@T("a 30-second scan.", "einen 30-Sekunden-Scan.")</em></h2>
+            </div>
+            <p class="proof-lede">@T(
+                "Most portfolios show thumbnails. This console turns my work into role-ready proof: impact, stack, shipped artifacts, and the project a recruiter should open first.",
+                "Viele Portfolios zeigen nur Kacheln. Diese Konsole übersetzt meine Arbeit in Rollen-Belege: Impact, Stack, gebaute Artefakte und das Projekt, das Recruiter zuerst öffnen sollten.")</p>
+        </div>
+        <div class="proof-console reveal">
+            <div class="proof-rail" role="list" aria-label="Evidence signals">
+                @foreach (var signal in ProofSignals)
+                {
+                    <button type="button" class="@(selectedProof == signal.Key ? "active" : "")" @onclick="() => SelectProof(signal.Key)" role="listitem">
+                        <span>@signal.Mono</span>
+                        <b>@T(signal.LabelEn, signal.LabelDe)</b>
+                        <small>@T(signal.SignalEn, signal.SignalDe)</small>
+                    </button>
+                }
+            </div>
+            <div class="proof-board">
+                <div class="proof-board-top">
+                    <span>@T("Selected proof route", "Ausgewählte Beweisroute")</span>
+                    <strong>@T(SelectedProof.HeadlineEn, SelectedProof.HeadlineDe)</strong>
+                </div>
+                <div class="proof-grid">
+                    @foreach (var metric in SelectedProof.Metrics)
+                    {
+                        <article>
+                            <b>@metric.Value</b>
+                            <span>@T(metric.LabelEn, metric.LabelDe)</span>
+                        </article>
+                    }
+                </div>
+                <p>@T(SelectedProof.BodyEn, SelectedProof.BodyDe)</p>
+                <div class="proof-stack">
+                    @foreach (var tag in SelectedProof.Stack)
+                    {
+                        <span>@tag</span>
+                    }
+                </div>
+                <div class="proof-actions">
+                    <a class="proof-primary" href="#work" @onclick="OpenProofProjects">@T("Open matching projects", "Passende Projekte öffnen") -></a>
+                    <a class="proof-secondary" target="_blank" rel="noopener" href="@SelectedProof.GitHubUrl">GitHub evidence -></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="work" class="section-shell work-section" data-section>
+        <div class="section-number">03</div>
         <div class="section-intro reveal">
             <div>
                 <div class="section-label">@T("Selected work", "Ausgewählte Projekte")</div>
@@ -188,7 +239,7 @@
     </section>
 
     <section id="lab" class="section-shell lab-section" data-section>
-        <div class="section-number">03</div>
+        <div class="section-number">04</div>
         <div class="section-intro reveal">
             <div class="section-label">@T("Role fit scanner", "Rollen-Fit-Scanner")</div>
             <h2>@T("Pick a role.", "Rolle auswählen.")<br /><em>@T("See the proof.", "Belege sehen.")</em></h2>
@@ -245,7 +296,7 @@
     </section>
 
     <section id="experience" class="section-shell experience-section" data-section>
-        <div class="section-number">04</div>
+        <div class="section-number">05</div>
         <div class="section-intro reveal">
             <div class="section-label">@T("Experience & toolkit", "Erfahrung & Werkzeuge")</div>
             <h2>@T("Built across the stack.", "Über den gesamten Stack.")</h2>
@@ -272,7 +323,7 @@
     </section>
 
     <section id="education" class="section-shell education-section" data-section>
-        <div class="section-number">05</div>
+        <div class="section-number">06</div>
         <div class="section-intro reveal">
             <div class="section-label">@T("Education & credentials", "Ausbildung & Zertifikate")</div>
             <h2>@T("Always in learning mode.", "Immer im Lernmodus.")</h2>
@@ -374,11 +425,13 @@
     private string commandQuery = "";
     private string activeFilter = "all";
     private string selectedRole = "software";
+    private string selectedProof = "agentic";
     private int activeProjectIndex;
     private double projectDragStartX;
     private double projectDragOffset;
     private RoleFit SelectedRole => RoleFits.First(r => r.Key == selectedRole);
     private string[] SelectedEvidence => isGerman ? SelectedRole.EvidenceDe : SelectedRole.EvidenceEn;
+    private ProofSignal SelectedProof => ProofSignals.First(p => p.Key == selectedProof);
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -396,6 +449,14 @@
     private void OpenCommandPalette() { commandPaletteOpen = true; commandQuery = ""; }
     private void CloseCommandPalette() => commandPaletteOpen = false;
     private void SelectRole(string key) => selectedRole = key;
+    private void SelectProof(string key) => selectedProof = key;
+    private void OpenProofProjects()
+    {
+        activeFilter = SelectedProof.ProjectFilter;
+        activeProjectIndex = 0;
+        projectDragOffset = 0;
+        isProjectDragging = false;
+    }
     private void ApplySelectedRoleFilter()
     {
         activeFilter = SelectedRole.ProjectFilter;
@@ -484,7 +545,7 @@
 
     private static readonly (string Id, string En, string De)[] NavItems =
     [
-        ("about", "About", "Über mich"), ("work", "Work", "Projekte"), ("lab", "Fit", "Fit"),
+        ("about", "About", "Über mich"), ("proof", "Proof", "Belege"), ("work", "Work", "Projekte"), ("lab", "Fit", "Fit"),
         ("experience", "Experience", "Erfahrung"), ("education", "Education", "Ausbildung"), ("contact", "Contact", "Kontakt")
     ];
 
@@ -498,6 +559,42 @@
         new("01", "Measure the outcome", "Ergebnisse messen", "A model is only useful when it improves a decision, process, or product.", "Ein Modell ist nur wertvoll, wenn es Entscheidungen, Prozesse oder Produkte verbessert."),
         new("02", "Build for production", "Für Produktion bauen", "Clean APIs, observable systems, maintainable code, and deliberate trade-offs.", "Saubere APIs, beobachtbare Systeme, wartbarer Code und bewusste Trade-offs."),
         new("03", "Explain the complexity", "Komplexität erklären", "Clear communication turns technical depth into shared understanding.", "Klare Kommunikation macht technische Tiefe gemeinsam verständlich.")
+    ];
+
+    private static readonly ProofSignal[] ProofSignals =
+    [
+        new("agentic", "AI", "Agentic AI", "Agentic AI", "LangGraph / RAG / local LLM", "LangGraph / RAG / lokales LLM",
+            "LLM systems with product discipline.",
+            "LLM-Systeme mit Produktdisziplin.",
+            "Luxury Concierge Agent shows the full path recruiters care about: multi-step reasoning, local RAG, tool calls, memory, evaluation, and a polished UI that can be explained without hand-waving.",
+            "Luxury Concierge Agent zeigt die komplette Kette, die Recruiter interessiert: Multi-Step-Reasoning, lokales RAG, Tool Calls, Memory, Evaluation und eine saubere UI.",
+            [new("Local", "LLM runtime", "LLM-Runtime"), new("6", "agent steps", "Agent-Schritte"), new("0 EUR", "API cost path", "API-Kostenpfad")],
+            ["Python", "LangGraph", "RAG", "Ollama", "Streamlit", "pytest"],
+            "Agentic AI", "https://github.com/srohitsuryaa21/luxury-concierge-agent"),
+        new("fintech", "SEPA", "Fintech backend", "Fintech Backend", "payments / risk / audit", "Payments / Risk / Audit",
+            "Compliance-aware backend evidence.",
+            "Compliance-nahe Backend-Belege.",
+            "FinGuard PayOps is built like an operations system, not a toy app: payment lifecycle, fraud scoring, compliance alerts, analyst decisions, and audit trails.",
+            "FinGuard PayOps ist wie ein Operations-System gebaut, nicht wie eine Demo: Payment-Lifecycle, Betrugsscore, Compliance-Alerts, Analystenentscheidungen und Audit-Trails.",
+            [new("SEPA", "payment domain", "Payment-Domäne"), new("Audit", "trail first", "Trail zuerst"), new("Risk", "scoring logic", "Scoring-Logik")],
+            ["Java", "Spring Boot", "PostgreSQL", "Kafka", "React"],
+            "Fintech", "https://github.com/srohitsuryaa21/FinGuard-PayOps"),
+        new("data", "63K", "Data products", "Datenprodukte", "ontology / BI / decisions", "Ontologie / BI / Entscheidungen",
+            "Data work that becomes a decision surface.",
+            "Datenarbeit als Entscheidungsfläche.",
+            "The aviation project proves pipeline thinking from raw records to stable object modeling and a Power BI dashboard, while supply-chain work shows forecasting and operational analytics.",
+            "Das Aviation-Projekt zeigt Pipeline-Denken von Rohdaten zu stabiler Objektmodellierung und Power BI, während Supply Chain Forecasting und operative Analytics belegt.",
+            [new("63K", "flights modeled", "Flüge modelliert"), new("110K+", "orders analyzed", "Orders analysiert"), new("BI", "dashboard layer", "Dashboard-Layer")],
+            ["Python", "Pandas", "PySpark", "Power BI", "SQL"],
+            "Data Engineering", "https://github.com/srohitsuryaa21/aviation-delay-ontology"),
+        new("research", "IEEE", "Research impact", "Research Impact", "published / measured / explained", "publiziert / gemessen / erklärt",
+            "Research that ships with measurable claims.",
+            "Forschung mit messbaren Claims.",
+            "The IEEE work gives the site academic credibility, but the important signal is how the claims are turned into systems, metrics, and communication a team can evaluate quickly.",
+            "Die IEEE-Arbeiten geben akademische Glaubwürdigkeit; der wichtigere Punkt ist, dass Claims in Systeme, Metriken und klare Kommunikation übersetzt werden.",
+            [new("2", "IEEE papers", "IEEE Papers"), new("96%", "ML accuracy", "ML Accuracy"), new("+21%", "power output", "Power Output")],
+            ["XGBoost", "Time Series", "Solidity", "Web3.py", "Python"],
+            "Research", "https://github.com/srohitsuryaa21/windmill-pitch-prediction")
     ];
 
     private static readonly PortfolioProject[] Projects =
@@ -616,6 +713,7 @@
     private static readonly Command[] Commands =
     [
         new("⌁", "Selected work", "Ausgewählte Projekte", "#work", "Research and production projects"),
+        new("▣", "Evidence console", "Evidence Console", "#proof", "Role-ready proof signals"),
         new("◈", "Role fit scanner", "Rollen-Fit-Scanner", "#lab", "Match evidence to an open role"),
         new("◎", "Experience", "Erfahrung", "#experience", "Roles and technical toolkit"),
         new("↗", "Send an email", "E-Mail senden", "mailto:Rohitsuryaas21@gmail.com", "Start a conversation"),
@@ -625,6 +723,8 @@
     ];
 
     private sealed record Principle(string Number, string En, string De, string BodyEn, string BodyDe);
+    private sealed record ProofMetric(string Value, string LabelEn, string LabelDe);
+    private sealed record ProofSignal(string Key, string Mono, string LabelEn, string LabelDe, string SignalEn, string SignalDe, string HeadlineEn, string HeadlineDe, string BodyEn, string BodyDe, ProofMetric[] Metrics, string[] Stack, string ProjectFilter, string GitHubUrl);
     private sealed record SkillSet(string Label, string[] Tags);
     private sealed record RoleFit(string Key, string Icon, string TitleEn, string TitleDe, string SignalEn, string SignalDe, int FitScore, string HeadlineEn, string HeadlineDe, string BodyEn, string BodyDe, string[] EvidenceEn, string[] EvidenceDe, string[] Stack, string ProjectFilter);
     private sealed record Command(string Icon, string En, string De, string Url, string Hint);
